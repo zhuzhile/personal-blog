@@ -1,25 +1,24 @@
 <template>
-    <Menu>
+    <Menu @on-select="redirectToOtherRouter">
         <template v-for='item in menuList' >
-            <MenuItem :key='item' v-if='item.children.length == 1' name='item.name' @on-select="redirectToOtherRouter(item.children[0].name)"> {{item.title}}</MenuItem>
+            <MenuItem :key='item.name' v-if='item.children.length == 1' :name='item.children[0].name' > {{item.title}}</MenuItem>
         </template>
     </Menu>
 </template>
 
 <script>
-// import {mapState} from 'vuex';
-import {appRouters} from '@/router/router'
 
 export  default {
-   
+    props:['menuList'],
     data(){
         return {
-             menuList:appRouters
         }
     },
-    // computed:{
-    //     ...mapState['menuList']
-    // },
+    computed:{
+        // menuList(){
+        //     return this.$store.state.menuList;
+        // }
+    },
     methods:{
         redirectToOtherRouter(name){
             this.$router.push({name:name});

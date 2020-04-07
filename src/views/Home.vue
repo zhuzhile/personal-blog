@@ -2,7 +2,7 @@
   <div class="home">
     <Layout class='contentLayout'>
       <Sider class="sider" width='240'>
-       <menuComponent></menuComponent>
+       <menuComponent :menuList = 'menuList'></menuComponent>
       </Sider>
       <Layout>
         <Header class="header" height='50'>
@@ -55,7 +55,7 @@
 import * as loginRequest from '../apis/login'
 import {appRouters} from '@/router/router.js'
 import menuComponent from '@/components/menu-component/menuComponent.vue';
-
+import {mapState} from 'vuex';
 
 export default {
   name: 'home',
@@ -67,6 +67,7 @@ export default {
                 user:'',
                 password:'',
         },
+        // menuList:[],
         rules:{
               user: [
                         { required: true, message: 'Please fill in the user name', trigger: 'blur' }
@@ -81,6 +82,15 @@ export default {
   },
   components:{
     menuComponent
+  },
+
+  computed:{
+    ...mapState({
+      menuList: state => {
+        console.log("state menuList",state.app.menuList);
+        return state.app.menuList;
+      }
+    })
   },
 
   methods:{

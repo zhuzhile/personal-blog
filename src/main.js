@@ -5,7 +5,7 @@ import store from './store'
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
 import axios from 'axios';
-
+import {appRouters} from '@/router/router'
 
 
 Vue.use(ViewUI);
@@ -39,8 +39,7 @@ new Vue({
   router,
   store,
   mounted(){
-    this.$store.commit('updateMenuList', appRouters);
-    window.console.log("appRouters",appRouters);
+    this.$store.commit('updateMenuList',  appRouters);
   },
   render: h => h(App)
 }).$mount('#app')

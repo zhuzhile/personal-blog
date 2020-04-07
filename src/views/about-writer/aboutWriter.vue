@@ -1,5 +1,7 @@
 <template>
-    
+    <div>
+        aboutWriter
+    </div>
 </template>
 
 <script>

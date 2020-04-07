@@ -1,12 +1,44 @@
 <template>
-    <div>
-        个人中心
-    </div>
+   <Row type='flex' justify="space-around">
+       <Col span='3' offset='1'>
+        <Menu @on-select="redirectToOtherRouter">
+            <MenuItem name='personalInfo'>
+                <Icon type="ios-folder-open-outline" />
+                个人资料
+            </MenuItem>
+            <MenuItem name="updatePassword">
+                <Icon type="ios-hammer-outline" />
+                修改密码
+            </MenuItem>
+            <MenuItem name="myCollection">
+                <Icon type="md-heart-outline" />
+                我的收藏
+            </MenuItem>
+            <MenuItem name="updateAvatar">
+                <Icon type="md-color-filter" />
+                修改头像
+            </MenuItem>
+        </Menu>
+       </Col>
+       <Col span="15"  >
+            <router-view/>
+       </Col>
+   </Row>
 </template>
 
 <script>
 export default {
-    
+    data(){
+        return {
+
+        }
+    },
+    methods:{
+        redirectToOtherRouter(name){
+            console.log(name);
+            this.$router.push({name:name});
+        }
+    }
 }
 </script>
 

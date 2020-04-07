@@ -34,13 +34,35 @@ export const otherRouters = {
     path:'/',
     component:Home,
     name:'Home',
-    // redirect:'/personalCenter',
+    redirect:'/personalCenter',
     children:[
         {
             path:'personalCenter',
             name:'personalCenter',
             title:'个人中心',
-            component: personalCenter => import('@/views/personal-center/personalCenter')
+            component: personalCenter => import('@/views/personal-center/personalCenter'),
+            children:[
+                {
+                    path:'personalInfo',
+                    name:'personalInfo',
+                    component: personalInfo => import('@/views/personal-center/components/personal-info/personalInfo')
+                },
+                {
+                    path:'updateAvatar',
+                    name:'updateAvatar',
+                    component: updateAvatar => import('@/views/personal-center/components/update-avatar/updateAvatar')
+                },
+                {
+                    path:'updatePassword',
+                    name:'updatePassword',
+                    component: updatePassword => import('@/views/personal-center/components/update-password/updatePassword')
+                },
+                {
+                    path:'myCollection',
+                    name:"myCollection",
+                    component: myCollection => import('@/views/personal-center/components/my-collection/myCollection')
+                }
+            ]
         }
     ]
 }
