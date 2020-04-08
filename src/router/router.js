@@ -40,6 +40,7 @@ export const otherRouters = {
             path:'personalCenter',
             name:'personalCenter',
             title:'个人中心',
+            redirect:'/personalCenter/personalInfo',
             component: personalCenter => import('@/views/personal-center/personalCenter'),
             children:[
                 {
@@ -56,6 +57,11 @@ export const otherRouters = {
                     path:'updatePassword',
                     name:'updatePassword',
                     component: updatePassword => import('@/views/personal-center/components/update-password/updatePassword')
+                },
+                {
+                    path:'completeInfo',
+                    name:'completeInfo',
+                    component: completeInfo => import("@/views/personal-center/components/complete-info/completeInfo")
                 },
                 {
                     path:'myCollection',

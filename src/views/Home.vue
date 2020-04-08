@@ -30,12 +30,12 @@
         v-model="isShowlogDialog"
         title="登录"
         >
-        <Form ref="formData" :model="formData" :rules="rules" label-position="left" >
+        <Form ref="formData" :model="formData" :rules="rules" label-position="left" :label-width="80">
             <FormItem prop="user" label="用户名:">
                 <Input type="text" v-model="formData.user" placeholder="用户名"/>
             </FormItem>
             <FormItem prop="password" label="密码:">
-                <Input type="password" v-model="formData.password" placeholder="密码"/>
+                <Input type="password" v-model="formData.password" placeholder="密码" password/>
             </FormItem>
         </Form>
         <div slot="footer">
@@ -87,7 +87,7 @@ export default {
   computed:{
     ...mapState({
       menuList: state => {
-        console.log("state menuList",state.app.menuList);
+        // console.log("state menuList",state.app.menuList);
         return state.app.menuList;
       }
     })

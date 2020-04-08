@@ -1,12 +1,66 @@
 <template>
-    <div>
-        personalInfo
-    </div>
+    <Card>
+         <p slot="title">
+            <Icon type="ios-film-outline"></Icon>
+            个人资料
+        </p>    
+        <Form ref='personalInfo' :model='personalInfoForm'>
+            <FormItem prop='avatarUrl'>
+                <div>
+                    个人头像: 
+                    <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size='large' style="margin-left:10px"></Avatar>
+                </div>
+                
+            </FormItem>
+
+            <FormItem prop='nickName'>
+                <p>
+                    <span>真实姓名: {{personalInfoForm.realName}}</span>
+                </p>
+            </FormItem>
+
+
+            <FormItem prop='nickName'>
+                <p>
+                    <span>用户名: {{personalInfoForm.nickName}}</span>
+                </p>
+            </FormItem>
+
+            <FormItem prop='address'>
+                  <p>
+                    <span>地址: {{personalInfoForm.address}}</span>
+                  </p>
+            </FormItem>
+            
+            <FormItem prop="companyName">
+                <p>
+                    <span>所在公司: {{personalInfoForm.companyName}}</span>
+                </p>
+            </FormItem>
+
+            <FormItem prop="postName">
+                  <p>
+                    <span>岗位: {{personalInfoForm.postName}}</span>
+                </p>
+            </FormItem>
+        </Form>
+    </Card>
 </template>
 
 <script>
     export default {
-
+        data(){
+            return {
+                personalInfoForm:{
+                    nickName:'bemount',
+                    avatarUrl:'',
+                    address:'',
+                    companyName:'',
+                    postName:'',
+                    realName:''
+                }
+            }
+        }
     }
 </script>
 

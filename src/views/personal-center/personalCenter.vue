@@ -18,6 +18,10 @@
                 <Icon type="md-color-filter" />
                 修改头像
             </MenuItem>
+            <MenuItem name="completeInfo">
+                <Icon type="ios-briefcase-outline" />
+                 完善信息
+            </MenuItem>
         </Menu>
        </Col>
        <Col span="15"  >
