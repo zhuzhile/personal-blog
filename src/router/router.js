@@ -34,7 +34,7 @@ export const otherRouters = {
     path:'/',
     component:Home,
     name:'Home',
-    redirect:'/personalCenter',
+    // redirect:'/personalCenter',
     children:[
         {
             path:'personalCenter',

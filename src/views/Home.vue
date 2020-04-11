@@ -14,14 +14,14 @@
                   <span>登录</span>
             </div> 
             <div v-else>
-               <Dropdown>
+               <Dropdown @on-click="handleRouterRedirect">
                  <a href="javascript:void(0)">
                   BeMount
                   <Icon type="ios-arrow-down"></Icon>
                  </a>
-                <DropdownMenu slot="list">
-                <DropdownItem>个人中心</DropdownItem>
-                <DropdownItem>退出</DropdownItem>
+                <DropdownMenu slot="list" >
+                <DropdownItem name="personalCenter">个人中心</DropdownItem>
+                <DropdownItem name="logout">退出</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </div>
@@ -87,7 +87,6 @@ export default {
   computed:{
     ...mapState({
       menuList: state => {
-        // console.log("state menuList",state.app.menuList);
         return state.app.menuList;
       }
     })
@@ -106,6 +105,15 @@ export default {
     login(){  
       this.$refs['formData'].resetFields();
       this.isShowlogDialog = true;
+    },
+    handleRouterRedirect(name){
+      if(name == 'personalCenter'){
+        if(localStorage.getItem('jwt') ){
+          this.$router.push({name:name})
+        }else{
+          this.$Message.info("请先登录");
+       }
+      }
     },
     handleSubmit(name){
             this.$refs[name].validate((valid) => {

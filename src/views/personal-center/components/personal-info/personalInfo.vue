@@ -28,7 +28,7 @@
 
             <FormItem prop='address'>
                   <p>
-                    <span>地址: {{personalInfoForm.address}}</span>
+                    <span>学历: {{personalInfoForm.education}}</span>
                   </p>
             </FormItem>
             
@@ -54,7 +54,7 @@
                 personalInfoForm:{
                     nickName:'bemount',
                     avatarUrl:'',
-                    address:'',
+                    education:'',
                     companyName:'',
                     postName:'',
                     realName:''

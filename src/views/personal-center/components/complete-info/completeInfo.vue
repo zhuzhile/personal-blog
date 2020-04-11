@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import * as personalCenter from '@/apis/personalCenter';
+
     export default{
         data(){
             return {
@@ -59,7 +61,7 @@
         },
         methods:{
              handleSubmit(name) {
-               this.$refs[name].resetFields();
+               personalCenter.submitCompleteInfo(this, name);
             }
         }
     }
