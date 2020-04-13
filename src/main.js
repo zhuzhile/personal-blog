@@ -43,7 +43,10 @@ new Vue({
   router,
   store,
   mounted(){
-    this.$store.commit('updateMenuList',  appRouters);
+    // if(localStorage)
+    // 这里需要做判断是否是owner角色登录
+    this.$store.commit('initMenuList',  appRouters);
+    // this.$store.commit('updateMenuList',  appRouters);
   },
   render: h => h(App)
 }).$mount('#app')

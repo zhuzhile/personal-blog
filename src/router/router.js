@@ -49,6 +49,7 @@ export const appRouters = [
         name:'markdownEditor',
         title:'markdown编辑',
         icon:'md-brush',
+        access: 1,
         component:Home,
         children:[
             {
