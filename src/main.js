@@ -3,12 +3,16 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ViewUI from 'view-design';
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+// use
 import 'view-design/dist/styles/iview.css';
 import axios from 'axios';
 import {appRouters} from '@/router/router'
 
 
 Vue.use(ViewUI);
+Vue.use(mavonEditor)
 
 Vue.prototype.$axios = axios.create({
   baseURL:"http://localhost:30000"

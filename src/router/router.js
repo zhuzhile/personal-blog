@@ -27,6 +27,20 @@ export const appRouters = [
                 component: aboutWriter => import('@/views/about-writer/aboutWriter')
             }
         ] 
+    },
+    {
+        path:'/markdown-editor',
+        name:'markdownEditor',
+        title:'富文本编辑',
+        component:Home,
+        children:[
+            {
+                path:'index',
+                name:'markdowEditorIndex',
+                component: markdownEidtor => import('@/views/markdown-editor/markdown-editor')
+            }
+        ]
+
     }
 ]
 

@@ -16,7 +16,7 @@
             <div v-else>
                <Dropdown @on-click="handleRouterRedirect">
                  <a href="javascript:void(0)">
-                  BeMount
+                  {{userName}}
                   <Icon type="ios-arrow-down"></Icon>
                  </a>
                 <DropdownMenu slot="list" >
@@ -53,6 +53,7 @@
 
 <script>
 import * as loginRequest from '../apis/login'
+import Cookie from 'js-cookie'
 import {appRouters} from '@/router/router.js'
 import menuComponent from '@/components/menu-component/menuComponent.vue';
 import {mapState} from 'vuex';
@@ -89,23 +90,29 @@ export default {
       menuList: state => {
         return state.app.menuList;
       }
-    })
+    }),
+    userName(){
+      return  Cookie.get('userName');
+    }
   },
 
   methods:{
+    // 注册表单处理
     handleSignUp(name){
        this.$refs[name].validate((valid) => {
                     if (valid) {
-                        loginRequest.addUsers(this);
+                        loginRequest.addUsers(this, name);
                     } else {
                         this.$Message.error('Fail!');
                     }
               })
     },
+    // 点击登录注册
     login(){  
       this.$refs['formData'].resetFields();
       this.isShowlogDialog = true;
     },
+    //个人中心退出登录处理
     handleRouterRedirect(name){
       if(name == 'personalCenter'){
         if(localStorage.getItem('jwt') ){
@@ -113,12 +120,16 @@ export default {
         }else{
           this.$Message.info("请先登录");
        }
+      }else{
+        localStorage.removeItem('jwt');
+        Cookie.delete('userName');
       }
     },
+    // 登录表单处理
     handleSubmit(name){
             this.$refs[name].validate((valid) => {
                     if (valid) {
-                        loginRequest.login(this);
+                        loginRequest.login(this, name);
                     } else {
                         this.$Message.error('Fail!');
                     }
@@ -148,7 +159,8 @@ export default {
   }
 
   .content{
-    height:calc(~"100vh - 50px");
+    height: calc(~"100vh - 50px");
+    width: calc( ~"100wh-200px");
     background-color: aliceblue;
   }
 

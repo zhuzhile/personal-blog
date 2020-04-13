@@ -1,5 +1,6 @@
+import Cookie from 'js-cookie';
 //登录
-export const login = vm =>{
+export const login = (vm, name) =>{
     vm.$axios.request({
         url:'/login/signIn',
         data:{
@@ -14,7 +15,11 @@ export const login = vm =>{
             vm.isShowlogDialog = false;
             vm.isLogedIn = false;
             vm.$Message.success('登录成功');
-            window.console.log(res.data.jwt); 
+            Cookie.set({
+                name: 'userName',
+                value: vm.formData.user
+            });
+            vm.$refs[name].resetFields();
             localStorage.setItem('jwt',res.data.jwt);
         }
     }).catch(err=>{
@@ -24,7 +29,7 @@ export const login = vm =>{
 
 
 //注册
-export const addUsers = vm =>{
+export const addUsers = (vm, name) =>{
     vm.$axios.request({
         url:'/login/addUser',
         data:{
@@ -35,11 +40,13 @@ export const addUsers = vm =>{
     }).then(res=>{
         if(res.data.result){
             vm.$Message.success('新增用户成功');
+            vm.$refs[name].resetFields();
+        
         }else{
             vm.$Message.warning(res.data.message);
         }
     }).catch(err=>{
-        window.console.log(err);
+        console.log(err);
     })
 }
 
