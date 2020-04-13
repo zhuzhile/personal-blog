@@ -5,6 +5,7 @@ export const appRouters = [
         path:'/articleManagement',
         name:'articleManagement',
         title:'文章管理',
+        icon:'ios-map-outline',
         component: Home,
         children:[
             {
@@ -16,9 +17,24 @@ export const appRouters = [
         
     },
     {
+     path:'/commentManagement',
+     name:'commentManagement',
+     title:'评论管理',
+     icon:'md-hand',
+     component:Home,
+     children:[
+        {
+            path:'index',
+            name:'commentManagementIndex',
+            component: commentManagement => import('@/views/comment-management/comment-management')
+        }
+     ]
+    },
+    {
         path:'/aboutWriter',
         name:'aboutWriter',
         title:'作者相关',
+        icon:'ios-paper-plane-outline',
         component:Home,
         children:[
             {
@@ -31,7 +47,8 @@ export const appRouters = [
     {
         path:'/markdown-editor',
         name:'markdownEditor',
-        title:'富文本编辑',
+        title:'markdown编辑',
+        icon:'md-brush',
         component:Home,
         children:[
             {

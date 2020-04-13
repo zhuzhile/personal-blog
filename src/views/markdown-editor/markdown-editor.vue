@@ -7,7 +7,8 @@
     <div>
         <Row class="margin-top-20">
             <Col span="24" >
-                  <mavon-editor v-model="value"/>
+                  <!-- <p></p> -->
+                  <mavon-editor v-model="markdownContent" @save="getHTMLCode"/>
             </Col>
         </Row>
     </div>
@@ -19,7 +20,12 @@ export default {
     name: 'markdown-editor',
     data(){
         return{
-            value:''
+            markdownContent:''
+        }
+    },
+    methods:{
+        getHTMLCode(f, s){
+            console.log(f, s);
         }
     }
 };
