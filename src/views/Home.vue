@@ -64,6 +64,7 @@ export default {
     return {
         isShowlogDialog:false,//是否显示登陆弹框
         isLogedIn:true,
+        // userName:Cookie.get('userName'),
         formData:{
                 user:'',
                 password:'',
@@ -89,11 +90,14 @@ export default {
     ...mapState({
       menuList: state => {
         return state.app.menuList;
+      },
+      userName(){
+        return  Cookie.get('userName');
       }
     }),
-    userName(){
-      return  Cookie.get('userName');
-    }
+    // userName(){
+    //   return  Cookie.get('userName');
+    // }
   },
 
   methods:{
@@ -122,7 +126,9 @@ export default {
        }
       }else{
         localStorage.removeItem('jwt');
-        Cookie.delete('userName');
+        this.isLogedIn = true;
+        this.$router.push({name:'articleManagementIndex'})
+        Cookie.remove('userName');
       }
     },
     // 登录表单处理

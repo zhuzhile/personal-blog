@@ -66,7 +66,7 @@ export const otherRouters = {
     path:'/',
     component:Home,
     name:'Home',
-    // redirect:'/personalCenter',
+    redirect:'/articleManagement/index',
     children:[
         {
             path:'personalCenter',

@@ -11,14 +11,14 @@ export const login = (vm, name) =>{
     }).then(res=>{
         if(res.data.result == false){
             vm.$Message.warning(res.data.message);
+            vm.$refs[name].resetFields();
         }else{
             vm.isShowlogDialog = false;
             vm.isLogedIn = false;
             vm.$Message.success('登录成功');
-            Cookie.set({
-                name: 'userName',
-                value: vm.formData.user
-            });
+            console.log('------');
+            Cookie.set('userName', vm.formData.user);
+            console.log('Cookie', Cookie.get('userName'))
             vm.$refs[name].resetFields();
             localStorage.setItem('jwt',res.data.jwt);
         }
@@ -41,7 +41,6 @@ export const addUsers = (vm, name) =>{
         if(res.data.result){
             vm.$Message.success('新增用户成功');
             vm.$refs[name].resetFields();
-        
         }else{
             vm.$Message.warning(res.data.message);
         }

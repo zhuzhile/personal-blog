@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import {changePassword} from '@/apis/personalCenter';
+
     export default {
         data(){
             return {
@@ -56,7 +58,12 @@
             handleSubmit(name){
                  this.$refs[name].validate((valid) => {
                     if (valid) {
-                        this.$Message.success('Success!');
+                        // this.$Message.success('Success!');
+                        if(this.updatePasswordInfo.newPassword != this.updatePasswordInfo.reNewPassword){
+                            this.$Message.warning("两次密码输入不一致");
+                            return ;
+                        }
+                        changePassword(this);
                     } else {
                         this.$Message.error('Fail!');
                     }

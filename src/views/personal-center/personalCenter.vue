@@ -31,6 +31,7 @@
 </template>
 
 <script>
+
 export default {
     data(){
         return {
@@ -43,6 +44,7 @@ export default {
             this.$router.push({name:name});
         }
     }
+
 }
 </script>
 

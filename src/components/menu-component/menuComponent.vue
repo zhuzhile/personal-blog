@@ -1,5 +1,5 @@
 <template>
-    <Menu @on-select="redirectToOtherRouter">
+    <Menu @on-select="redirectToOtherRouter" active-name = "articleManagementIndex">
         <template v-for='item in menuList' >
             <MenuItem :key='item.name' v-if='item.children.length == 1' :name='item.children[0].name' > 
                 <Icon :type="item.icon" size='16'/>

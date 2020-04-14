@@ -8,7 +8,8 @@
             <FormItem prop='avatarUrl'>
                 <div>
                     个人头像: 
-                    <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size='large' style="margin-left:10px"></Avatar>
+                    <Avatar  size='large' style="margin-left:10px" v-if="personalInfoForm.avatarUrl" :src="personalInfoForm.avatarUrl"></Avatar>
+                    <Avatar  size='large' style="margin-left:10px" v-else>{{userName}}</Avatar>
                 </div>
                 
             </FormItem>
@@ -48,17 +49,31 @@
 </template>
 
 <script>
+import * as personalCenterRequest from '@/apis/personalCenter.js';
+import Cookie from 'js-cookie';
+
     export default {
         data(){
             return {
                 personalInfoForm:{
-                    nickName:'bemount',
+                    nickName:'',
                     avatarUrl:'',
                     education:'',
                     companyName:'',
                     postName:'',
                     realName:''
                 }
+            }
+        },
+        created(){
+            personalCenterRequest.getCompleteInfo(this);       
+        },
+        methods:{
+           
+        },
+        computed:{
+            userName(){
+                return Cookie.get('userName');
             }
         }
     }
