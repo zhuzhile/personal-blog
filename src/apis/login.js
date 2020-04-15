@@ -20,8 +20,8 @@ export const login = (vm, name) =>{
             Cookie.set('userName', vm.formData.user);
             vm.userName = Cookie.get('userName');
             if(vm.formData.user === 'BeMount'){
-                // vm.updateMenuList();
-                vm.$store.commit('updateMenuList');
+                vm.updateMenuList();
+                // vm.$store.commit('updateMenuList');
             }
             console.log('Cookie', Cookie.get('userName'))
             vm.$refs[name].resetFields();

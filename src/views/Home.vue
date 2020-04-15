@@ -57,7 +57,7 @@ import * as loginRequest from '../apis/login'
 import Cookie from 'js-cookie'
 import {appRouters} from '@/router/router.js'
 import menuComponent from '@/components/menu-component/menuComponent.vue';
-import {mapState,mapActions} from 'vuex';
+import {mapState,mapActions,mapMutations} from 'vuex';
 import {baseUserNameChangeMenuList} from '@/util/util.js';
 
 
@@ -119,9 +119,8 @@ export default {
                     }
               })
     },
-    ...mapActions({
-        updateMenuList:'updateMenuList'
-    }),
+    ...mapMutations(['updateMenuList']
+    ),
    
     // 点击登录注册
     login(){  
