@@ -14,10 +14,15 @@ export const login = (vm, name) =>{
             vm.$refs[name].resetFields();
         }else{
             vm.isShowlogDialog = false;
-            vm.isLogedIn = false;
+            vm.isLogedIn = true;
             vm.$Message.success('登录成功');
-            console.log('------');
+            console.log('------isLogedIn', vm.isLogedIn);
             Cookie.set('userName', vm.formData.user);
+            vm.userName = Cookie.get('userName');
+            if(vm.formData.user === 'BeMount'){
+                // vm.updateMenuList();
+                vm.$store.commit('updateMenuList');
+            }
             console.log('Cookie', Cookie.get('userName'))
             vm.$refs[name].resetFields();
             localStorage.setItem('jwt',res.data.jwt);

@@ -9,11 +9,7 @@
             <div class="header-content-left">
               <img src="../assets/blog_logo.jpg" alt="BeMount个人博客logo" height='50px' style="margin-top:22px">
             </div> 
-            <div class='header-content-right' @click="login" v-if="isLogedIn">
-                  <Avatar icon="ios-person"  size="large" style="marginRight:5px"/>
-                  <span>登录</span>
-            </div> 
-            <div v-else>
+             <div v-if='isLogedIn'>
                <Dropdown @on-click="handleRouterRedirect">
                  <a href="javascript:void(0)">
                   {{userName}}
@@ -25,6 +21,11 @@
                 </DropdownMenu>
               </Dropdown>
             </div>
+            <div class='header-content-right' @click="login" v-else>
+                  <Avatar icon="ios-person"  size="large" style="marginRight:5px"/>
+                  <span>登录</span>
+            </div> 
+           
         </Header>
        <Modal
         v-model="isShowlogDialog"
@@ -56,14 +57,17 @@ import * as loginRequest from '../apis/login'
 import Cookie from 'js-cookie'
 import {appRouters} from '@/router/router.js'
 import menuComponent from '@/components/menu-component/menuComponent.vue';
-import {mapState} from 'vuex';
+import {mapState,mapActions} from 'vuex';
+import {baseUserNameChangeMenuList} from '@/util/util.js';
+
 
 export default {
   name: 'home',
   data(){
     return {
         isShowlogDialog:false,//是否显示登陆弹框
-        isLogedIn:true,
+        isLogedIn: false,
+        userName:'',
         // userName:Cookie.get('userName'),
         formData:{
                 user:'',
@@ -91,14 +95,18 @@ export default {
       menuList: state => {
         return state.app.menuList;
       },
-      userName(){
-        return  Cookie.get('userName');
-      }
-    }),
-    // userName(){
-    //   return  Cookie.get('userName');
-    // }
+     
+    })
   },
+  //? 每次竟然会重新读isLogedIn
+  created(){
+      if(localStorage.getItem('jwt')){
+        console.log('----isLogedIn', this.isLogedIn);
+        this.userName = Cookie.get('userName');
+        this.isLogedIn = true;
+        baseUserNameChangeMenuList(this);
+      }
+   },
 
   methods:{
     // 注册表单处理
@@ -111,6 +119,10 @@ export default {
                     }
               })
     },
+    ...mapActions({
+        updateMenuList:'updateMenuList'
+    }),
+   
     // 点击登录注册
     login(){  
       this.$refs['formData'].resetFields();
@@ -126,9 +138,10 @@ export default {
        }
       }else{
         localStorage.removeItem('jwt');
-        this.isLogedIn = true;
-        this.$router.push({name:'articleManagementIndex'})
         Cookie.remove('userName');
+        this.$store.commit('initMenuList', appRouters);
+        this.isLogedIn = false;
+        this.$router.push({name:'articleManagementIndex'})
       }
     },
     // 登录表单处理
