@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import {appRouters, otherRouters} from './router.js'
+import {appRouters, otherRouters, articleDetailRouter} from './router.js'
 
 
 
@@ -10,7 +10,8 @@ Vue.use(VueRouter)
 
 const routes = [
   otherRouters,
-  ...appRouters  
+  ...appRouters,
+  articleDetailRouter
 ]
 
 const router = new VueRouter({

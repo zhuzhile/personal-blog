@@ -62,6 +62,20 @@ export const appRouters = [
     }
 ]
 
+
+export const articleDetailRouter = {
+    path:"/articleDetail",
+    name:'articleDetail',
+    component:Home,
+    children:[
+        {
+            path:'/index',
+            name:'articleDetailIndex',
+            component: articleDetail => import('@/views/article-management/articleManagement')
+        }
+    ]
+}
+
 export const otherRouters = {
     path:'/',
     component:Home,

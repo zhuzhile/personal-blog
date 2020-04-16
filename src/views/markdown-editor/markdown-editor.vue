@@ -10,11 +10,10 @@
                 <span style="font-size:16px;font-weight:bold"><Icon @click="submitContent" type="ios-cloud-upload-outline" size='24' style="margin-right:20px"/>发布文章</span>
             </Col>
             <Col span="24" > 
-                  <!-- <p></p> -->
-                  <mavon-editor v-model = "markdownContent" @save = "getHTMLCode"/>
+                  <mavon-editor v-model = "markdownContent" @save = "getHTMLCode" :ishljs="true"  :toolbarsFlag= "false"  :subfield=" false" :defaultOpen= "'preview'"/>
             </Col>
-            <Col span="24" style="margin-top:40px">
-                <Form ref="articleForm" :model="articleForm"  :label-width='100' :rules="articleRules">
+            <Col style="margin-top:20px" span="24">
+                <Form ref="articleForm" :model="articleForm"  :label-width='100' :rules="articleRules" >
                     <FormItem label = "文章标题" prop="articleTitle">
                         <Input v-model="articleForm.articleTitle" style="width:200px"></Input>
                     </FormItem>
@@ -33,7 +32,7 @@ export default {
     name: 'markdown-editor',
     data(){
         return{
-            markdownContent:'',
+            markdownContent:'## hello',
             articleForm:{
                 articleTitle:'',
                 articleDescription:''

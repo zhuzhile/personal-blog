@@ -45,8 +45,9 @@ new Vue({
   mounted(){
     // if(localStorage)
     // 这里需要做判断是否是owner角色登录
-    this.$store.commit('initMenuList',  appRouters);
-    // this.$store.commit('updateMenuList',  appRouters);
+    // this.$store.commit('initMenuList',  appRouters);
+    // ! test only
+    this.$store.commit('updateMenuList');
   },
   render: h => h(App)
 }).$mount('#app')
