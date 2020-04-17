@@ -71,7 +71,7 @@ export const articleDetailRouter = {
         {
             path:'/index',
             name:'articleDetailIndex',
-            component: articleDetail => import('@/views/article-management/articleManagement')
+            component: articleDetail => import('@/views/article-detail/articleDetail')
         }
     ]
 }

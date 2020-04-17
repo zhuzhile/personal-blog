@@ -47,6 +47,7 @@
 </template>
 
 <script>
+import * as markdownEditorRequest from '@/apis/markdownEditor.js';
 
 export default {
     name: 'markdown-editor',
@@ -55,7 +56,8 @@ export default {
             markdownContent:'',
             articleForm:{
                 articleTitle:'',
-                articleDescription:''
+                articleDescription:'',
+                // articleCollection:''
             },
             newTag:'',
             articleCollection:'',
@@ -66,9 +68,9 @@ export default {
                 articleDescription:[
                     { required: true, message: '请填写文章描述', trigger: 'blur' }
                 ],
-                articleCollection:[
-                    { required: true } 
-                ],
+                // articleCollection:[
+                //     { required: true,message: '请填写文章分类', trigger: 'blur'  } 
+                // ],
             }
         }
     },
@@ -88,12 +90,13 @@ export default {
                 return;
             }
 
-            if(this.$refs['articleForm'].validate(valid => {
+            this.$refs['articleForm'].validate(valid => {
                 if(valid){
-                    this.markdownContent = '';
-                    this.articleForm.articleDescription = '';
-                    this.articleForm.articleTitle = '';
-                    this.$Message.success('发布成功');
+                    console.log("valid", valid);
+                    if(this.newTag){
+                        this.articleCollection = '';
+                    }
+                    markdownEditorRequest.submitContent(this);
                 }else{
                     this.$Notice.warning({
                         title:'警告',
@@ -109,10 +112,7 @@ export default {
                         }
                     })
                 }
-            }))
-
-            // if(this.articleForm.title ==)
-            console.log('hello, submit content');
+            })
         }
     }
 };
