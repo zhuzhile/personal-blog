@@ -177,7 +177,7 @@ export default {
   }
 
   .content{
-    height: calc(~"100vh - 50px");
+    min-height: calc(~"100vh - 50px");
     width: calc( ~"100wh-200px");
     background-color: aliceblue;
   }

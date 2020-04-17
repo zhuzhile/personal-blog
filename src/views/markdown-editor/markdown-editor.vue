@@ -21,21 +21,15 @@
                         <Input  v-model= "articleForm.articleDescription" maxlength="200" show-word-limit type="textarea" placeholder="Enter something..." style="width: 300px"></Input>
                     </FormItem>
                     <FormItem label = "文章分类" prop="articleCollection">
-                        <RadioGroup v-model="articleCollection">
-                            <Radio label="vue">
-                                <span>Vue</span>
-                            </Radio>
-                            <Radio label="js">
-                                <span>JS</span>
-                            </Radio>
-                            <Radio label="css">
-                                <span>CSS</span>
+                        <RadioGroup v-model="articleCollection" v-for = "(item, index) in tags" :key="index">
+                            <Radio :label="item">
+                                <span>{{item}}</span>
                             </Radio>
                         </RadioGroup>
                     </FormItem>
                     <FormItem label="新增标签">
                         <!-- <span>新增标签</span> -->
-                        <Input v-model="newTag" size='small' style="width:200px"></Input>
+                        <Input v-model="newTag" size='small' style="width:150px" @on-blur="clearRadio"></Input>
                     </FormItem>
                 </Form>
             </Col>
@@ -48,6 +42,7 @@
 
 <script>
 import * as markdownEditorRequest from '@/apis/markdownEditor.js';
+// import {getAllArticleInfo} from '@/apis/articleManagement.js';
 
 export default {
     name: 'markdown-editor',
@@ -59,6 +54,7 @@ export default {
                 articleDescription:'',
                 // articleCollection:''
             },
+            tags:[],
             newTag:'',
             articleCollection:'',
             articleRules:{
@@ -79,6 +75,15 @@ export default {
         getHTMLCode(f, s){
             console.log(f, s);
         },
+
+        // 清空radiogroup
+        clearRadio(){
+            if(this.newTag){
+                this.articleCollection = '';
+            }
+        },
+
+        // 发布文章
         submitContent(){
             
             if(!this.markdownContent){
@@ -114,6 +119,10 @@ export default {
                 }
             })
         }
+    },
+    created(){
+        // 获取所有taginfo
+        markdownEditorRequest.getAllTagInfo(this);
     }
 };
 </script>

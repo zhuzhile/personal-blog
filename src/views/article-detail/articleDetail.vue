@@ -1,7 +1,10 @@
 <template>
     <div class="editor">
         <div>
-            <span><Icon type="md-arrow-back" size='26' style="margin-right:5px;color:#f40" @click="goBack"/>返回</span>
+            <span style="font-size:26px">
+                <!-- <Icon type="md-arrow-round-back"  /> -->
+                <Icon type="ios-arrow-dropleft" size='26' style="margin-right:5px;color:rgb(73, 167, 231)" @click="goBack"/>
+                返回</span>
         </div>
         <Row class="margin-top-20">
             <Col span = 24>

@@ -27,3 +27,21 @@ export const submitContent = vm =>{
         console.log('error', error);
     })
 }
+
+
+export const getAllTagInfo = vm =>{
+    vm.$axios.request({
+        url:'/article/getAllArticleInfo',
+        method:'get'
+    }).then(res => {
+        res.data.articleInfo.forEach((element, index) => {
+            if(element.tag){
+                vm.tags.push(element.tag);
+            }
+        });
+    }).catch(error => {
+        console.log("error", error);
+    })
+
+}
+
