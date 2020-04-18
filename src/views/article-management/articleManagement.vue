@@ -20,13 +20,14 @@
             <div class="article-management-style-detail" >
                 <span >
                     <Icon type="ios-folder-outline" style="margin-right:5px" size="26px"/>
-                     <a href="javascript:void(0)" @click="findArticleDetail(item.content)">查看全文</a> 
+                     <a href="javascript:void(0)" @click="findArticleDetail(item.content,item.title)">查看全文</a> 
                 </span>
             </div>
 
         </div>
     </div>
-    <BackTop :height='50'></BackTop>
+    <BackTop></BackTop>
+    <Page :total = 'length'  @on-change = "getArticles" :current = 'current' :page-size='pageSize'></Page>   
 
 </div>
     
@@ -39,16 +40,25 @@ export default {
     data(){
         return {
            articles:[],
-           tags:[]
+           tags:[],
+        //    articlesAll:[],
+           length:0,
+           pageSize: 3,
+           current: 1
         }
     },
     created(){
-        articleManagementRequest.getAllArticleInfo(this);        
+        articleManagementRequest.getAllArticleInfo(this); 
+        articleManagementRequest.getSplitArticleInfo(this);
     },
     methods:{
-        findArticleDetail(content){
-            this.$router.push({name:'articleDetailIndex',params:{content:content}});
+        findArticleDetail(content, title){
+            this.$router.push({name:'articleDetailIndex',params:{content: content,title: title}});
             // console.log(content);
+        },
+        getArticles(page){
+            this.current = page;
+            articleManagementRequest.getSplitArticleInfo(this);
         },
         updateArticleList(tag){
             // console.log(tag);

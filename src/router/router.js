@@ -21,6 +21,7 @@ export const appRouters = [
      name:'commentManagement',
      title:'评论管理',
      icon:'md-hand',
+     access:2,
      component:Home,
      children:[
         {

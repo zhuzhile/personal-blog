@@ -4,9 +4,9 @@ export const getAllArticleInfo = vm =>{
         method:'get'
     }).then(res => {
         let color = ['error','primary','success','yellow','orange'];
+        vm.length = res.data.articleInfo.length;
         res.data.articleInfo.forEach((element, index) => {
-            vm.articles.push(element);
-            // console.log(element);
+            // vm.articles.push(element);
             if(element.tag){
                 vm.tags.push({tagName:element.tag,tagColor:color[index%5]});
             }
@@ -15,7 +15,24 @@ export const getAllArticleInfo = vm =>{
     }).catch(error => {
         console.log("error", error);
     })
+}   
 
+export const getSplitArticleInfo = vm =>{
+    vm.$axios.request({
+        url:'/article/getSplitArticleInfo',
+        method:'get',
+        params:{
+            pageSize: vm.pageSize,
+            current: vm.current
+        }
+    }).then(res => {
+        vm.articles.splice(0);
+        res.data.articleInfo.forEach(element => {
+            vm.articles.push(element);
+        })
+    }).catch(error =>{
+        console.log('error',error);
+    })
 }
 
 export const updateArticleList = (vm, tag) =>{

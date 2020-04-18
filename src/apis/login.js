@@ -22,6 +22,8 @@ export const login = (vm, name) =>{
             if(vm.formData.user === 'BeMount'){
                 vm.updateMenuList();
                 // vm.$store.commit('updateMenuList');
+            }else{
+                vm.updateUserMenuList();
             }
             console.log('Cookie', Cookie.get('userName'))
             vm.$refs[name].resetFields();

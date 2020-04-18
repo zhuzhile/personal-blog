@@ -25,7 +25,16 @@ const app = {
         updateMenuList(state){
             state.menuList = state.routers;
             console.log(state.menuList);
-        }
+        },
+        //给文章评论管理的权限
+        updateUserMenuList(state){
+            state.routers.forEach(element => {
+                if(element.access == 2){
+                    state.menuList.push(element);
+                }
+            })
+        } 
+
     },
     actions:{
 

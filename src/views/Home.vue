@@ -119,7 +119,7 @@ export default {
                     }
               })
     },
-    ...mapMutations(['updateMenuList']
+    ...mapMutations(['updateMenuList','updateUserMenuList']
     ),
    
     // 点击登录注册
