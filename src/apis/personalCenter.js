@@ -1,5 +1,6 @@
 import Cookie from 'js-cookie'
 
+
 // 提交完整信息
 export const submitCompleteInfo = (vm, name)=>{
     vm.$axios.request({
@@ -68,6 +69,18 @@ export const changePassword = vm =>{
         console.log('error', error);
     })
 
+}
+
+// 获得用户的所有收藏
+export const getUserCollections = vm => {
+    vm.$axios.request({
+        url:'/personalCenter/getCompleteUserInfo',
+        method:'get'
+    }).then(res => {
+        vm.collections = res.data.userInfo.collections;
+    }).catch(error => {
+        console.log('error', error);
+    })
 }
 
 

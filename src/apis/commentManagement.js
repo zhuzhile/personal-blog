@@ -1,5 +1,6 @@
 
 import Cookie from 'js-cookie';
+import {turnUTCToGMT} from '@/util/util'
 
 // 提交评论
 export  const submitCommentContent = vm =>{
@@ -54,9 +55,12 @@ export const getAllCommentsOfUser = vm =>{
         url:'/comment/getAllCommentsOfUser',
         method:'get',
         params:{
-            userName:Cookie.get('userName')
+            userName:Cookie.get('userName').toUpperCase() === 'BEMOUNT' ? '':Cookie.get('userName')
         }
     }).then(res => {
+        res.data.commentsList.forEach((item, index) => {
+            item.commentDate = turnUTCToGMT(item.commentDate);
+        })
         vm.commentsList = res.data.commentsList;
     }).catch(error => {
         console.log('error', error);

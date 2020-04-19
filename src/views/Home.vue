@@ -2,12 +2,13 @@
   <div class="home">
     <Layout class='contentLayout'>
       <Sider class="sider" width='240'>
+       <img src="../assets/blog_logo.jpg" alt="BeMount个人博客logo" height='50px' style="margin-bottom:5px;margin-left:20px">
        <menuComponent :menuList = 'menuList'></menuComponent>
       </Sider>
       <Layout>
         <Header class="header" height='50'>
             <div class="header-content-left">
-              <img src="../assets/blog_logo.jpg" alt="BeMount个人博客logo" height='50px' style="margin-top:22px">
+              <!-- <img src="../assets/blog_logo.jpg" alt="BeMount个人博客logo" height='50px' style="margin-top:22px"> -->
             </div> 
              <div v-if='isLogedIn'>
                <Dropdown @on-click="handleRouterRedirect">
@@ -45,7 +46,7 @@
         </div>
        </Modal>
         <Content class="content">
-          <router-view/>
+          <router-view v-if="isRouterAlive"/>
         </Content>
       </Layout>
     </Layout>
@@ -63,11 +64,19 @@ import {baseUserNameChangeMenuList} from '@/util/util.js';
 
 export default {
   name: 'home',
+  // provide() { // 注册一个方法
+  //   return {
+  //     reload: this.reload
+  //   }
+  // },
   data(){
     return {
         isShowlogDialog:false,//是否显示登陆弹框
         isLogedIn: false,
         userName:'',
+        pageSize: 3,
+        isRouterAlive: true,
+        current: 1,
         // userName:Cookie.get('userName'),
         formData:{
                 user:'',
@@ -119,6 +128,12 @@ export default {
                     }
               })
     },
+    reload() {
+      this.isRouterAlive = false
+      this.$nextTick(function() {
+        this.isRouterAlive = true
+      })
+    },
     ...mapMutations(['updateMenuList','updateUserMenuList']
     ),
    
@@ -138,6 +153,8 @@ export default {
       }else{
         localStorage.removeItem('jwt');
         Cookie.remove('userName');
+        // this.$router.go(0);
+        this.reload();
         this.$store.commit('initMenuList', appRouters);
         this.isLogedIn = false;
         this.$router.push({name:'articleManagementIndex'})
@@ -177,7 +194,7 @@ export default {
   }
 
   .content{
-    min-height: calc(~"100vh - 50px");
+    height: calc(~"100vh - 50px");
     width: calc( ~"100wh-200px");
     background-color: aliceblue;
   }

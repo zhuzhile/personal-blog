@@ -1,4 +1,5 @@
 import Cookie from 'js-cookie';
+import {getSplitArticleInfo} from '@/apis/articleManagement.js'
 //登录
 export const login = (vm, name) =>{
     vm.$axios.request({
@@ -9,28 +10,34 @@ export const login = (vm, name) =>{
         },
         method:'post'
     }).then(res=>{
+
         if(res.data.result == false){
             vm.$Message.warning(res.data.message);
             vm.$refs[name].resetFields();
         }else{
-            vm.isShowlogDialog = false;
-            vm.isLogedIn = true;
-            vm.$Message.success('登录成功');
-            console.log('------isLogedIn', vm.isLogedIn);
-            Cookie.set('userName', vm.formData.user);
-            vm.userName = Cookie.get('userName');
-            if(vm.formData.user === 'BeMount'){
-                vm.updateMenuList();
-                // vm.$store.commit('updateMenuList');
-            }else{
-                vm.updateUserMenuList();
-            }
-            console.log('Cookie', Cookie.get('userName'))
-            vm.$refs[name].resetFields();
-            localStorage.setItem('jwt',res.data.jwt);
+            // getSplitArticleInfo(vm).then(res => {
+                vm.isShowlogDialog = false;
+                vm.isLogedIn = true;
+                vm.$Message.success('登录成功');
+                console.log('------isLogedIn', vm.isLogedIn);
+                Cookie.set('userName', vm.formData.user);
+                vm.userName = Cookie.get('userName');
+                if(vm.formData.user === 'BeMount'){
+                    vm.updateMenuList();
+                    // vm.$store.commit('updateMenuList');
+                }else{
+                    vm.updateUserMenuList();
+                }
+                console.log('Cookie', Cookie.get('userName'))
+                vm.$refs[name].resetFields();
+                localStorage.setItem('jwt',res.data.jwt);
+                // vm.$router.go(0);
+                vm.reload();
+                // });
+           
         }
     }).catch(err=>{
-        window.console.log(err);
+        console.log(err);
     })
 }
 
@@ -55,6 +62,7 @@ export const addUsers = (vm, name) =>{
         console.log(err);
     })
 }
+
 
 
 
