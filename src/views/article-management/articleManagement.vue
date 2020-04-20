@@ -22,7 +22,7 @@
 
             <div class="article-management-style-detail" >
                 <span style="margin-right:10px" >
-                    <Icon type="ios-heart-outline"  :class = "{active: item.isActive}" style="margin-right:5px" size="28px" @click = "collectArticle(item.content, item.title, index)"/>收藏
+                    <Icon type="ios-heart-outline"  :class = "{active: item.isActive}" style="margin-right:5px" size="28px" @click = "collectArticle(item.content, item.title, item.isActive)"/>收藏
                 </span>
                 <span>
                     <Icon type="ios-folder-outline" style="margin-right:5px" size="26px"/>
@@ -58,6 +58,7 @@ export default {
         }
     },
     created(){
+        // articleManagementRequest.clearAllActive(this);
         articleManagementRequest.getAllArticleInfo(this); 
         articleManagementRequest.getSplitArticleInfo(this);
     },
@@ -65,12 +66,13 @@ export default {
         findArticleDetail(content, title){
             this.$router.push({name:'articleDetailIndex',params:{content: content,title: title}});
         },
-        collectArticle(content, title){
+        collectArticle(content, title, isActive){
             if(!Cookie.get('userName')){
                 this.$Message.warning('请登录后收藏');
                 return;
             }
-            articleManagementRequest.collectArticle(this, content, title);
+            console.log("----isActive", isActive);
+            articleManagementRequest.collectArticle(this, content, title, isActive);
         },
         getArticles(page){
             this.current = page;

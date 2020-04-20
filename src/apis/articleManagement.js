@@ -20,6 +20,18 @@ export const getAllArticleInfo = vm =>{
     })
 }   
 
+export const clearAllActive = vm =>{
+    vm.$axios.request({
+        url:'/article/clearAllActive',
+        method:'get'
+    }).then(res => {
+        console.log(res.data.msg);
+
+    }).catch(error => {
+        console.log('error', error);
+    })
+}
+
 export const getSplitArticleInfo = vm =>{
     vm.$axios.request({
         url:'/article/getSplitArticleInfo',
@@ -34,7 +46,6 @@ export const getSplitArticleInfo = vm =>{
         
         articleInfo.forEach(element => {
             element.isActive = false;
-          
         })
 
         vm.$axios.request({
@@ -57,7 +68,8 @@ export const getSplitArticleInfo = vm =>{
                 }
             }
             articleInfo.forEach(element => {
-                element.createTime = turnUTCToGMT(element.createTime)
+                element.createTime = turnUTCToGMT(element.createTime);
+                // console.log(" vm.articles", vm.articles);
                 vm.articles.push(element);
             })
         }).catch(error => {
@@ -67,6 +79,17 @@ export const getSplitArticleInfo = vm =>{
         console.log('error',error);
     })
 }
+
+
+// async function updateArticleActiveInfo(vm ,title){
+//     let info = await vm.$axios.request({
+//         url:'/article/updateArticleActiveInfo',
+//         method:'get',
+//         params:{
+//             title
+//         }
+//     })
+// } 
 
 
 
@@ -94,14 +117,15 @@ export const updateArticleList = (vm, tag) =>{
     })
 }
 
-export const collectArticle = (vm, content, title) => {
+export const collectArticle = (vm, content, title, isActive) => {
     vm.$axios.request({
         url:'/login/collectArticle',
         method:'post',
         data:{
             userName:Cookie.get('userName'),
             content,
-            title
+            title,
+            isActive
         }
     }).then( res => {
         if(res.data.result){
