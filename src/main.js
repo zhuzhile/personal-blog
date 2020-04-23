@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import ViewUI from 'view-design';
+import './styles/icon.css';
 // import router from './router'
 
 import mavonEditor from 'mavon-editor'
