@@ -20,7 +20,7 @@ export const login = (vm, name) =>{
                 vm.isLogedIn = true;
                 vm.$Message.success('登录成功');
                 console.log('------isLogedIn', vm.isLogedIn);
-                Cookie.set('userName', vm.formData.user);
+                Cookie.set('userName', vm.formData.user,{ expires: 1 });
                 vm.userName = Cookie.get('userName');
                 if(vm.formData.user === 'BeMount'){
                     vm.updateMenuList();

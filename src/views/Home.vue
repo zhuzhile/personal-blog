@@ -45,7 +45,7 @@
               <Button type="primary" @click="handleSignUp('formData')" size="large">Sign up</Button>
         </div>
        </Modal>
-        <Content class="content">
+        <Content class="content" style='width:calc( ~"100wh - 200px");height: calc(~"100vh - 50px"); background-color: aliceblue;'>
           <router-view v-if="isRouterAlive"/>
         </Content>
       </Layout>
@@ -191,12 +191,6 @@ export default {
 
   .sider{
     background-color:rgb(255, 255, 255);
-  }
-
-  .content{
-    height: calc(~"100vh - 50px");
-    width: calc( ~"100wh-200px");
-    background-color: aliceblue;
   }
 
 

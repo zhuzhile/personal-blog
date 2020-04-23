@@ -74,6 +74,6 @@ import {changePassword} from '@/apis/personalCenter';
     }
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 @import './updatePassword.less';
 </style>

@@ -1,6 +1,7 @@
 import {turnUTCToGMT} from "@/util/util";
 import Cookie from 'js-cookie';
 
+
 export const getAllArticleInfo = vm =>{
     vm.$axios.request({
         url:'/article/getAllArticleInfo',
@@ -12,7 +13,14 @@ export const getAllArticleInfo = vm =>{
             // element.isActive = false;
             if(element.tag){
                 vm.tags.push({tagName:element.tag,tagColor:color[index%5]});
+                for(let i = 0;i < index;i++){
+                    if(element.tag === res.data.articleInfo[i].tag){
+                        vm.tags.pop();
+                        break;
+                    }
+                }
             }
+            
         });
 
     }).catch(error => {
@@ -105,13 +113,39 @@ export const updateArticleList = (vm, tag) =>{
         }
     }).then(res => {
         // vm.articles.splice(0);
-        // console.log(vm.articles);
         vm.articles.splice(0);
-        res.data.articleInfo.forEach(element => {
-            element.createTime = turnUTCToGMT(element.createTime)
-            vm.articles.push(element);
+        let articleInfo = res.data.articleInfo;
+        
+        articleInfo.forEach(element => {
+            element.isActive = false;
         })
-        // console.log(res);
+
+        vm.$axios.request({
+            url:'/personalCenter/getCompleteUserInfo',
+            method:'get'
+        }).then(res => {
+            console.log('----res', res);
+            if(!res.data.userInfo){
+                articleInfo.forEach(element => {
+                    element.createTime = turnUTCToGMT(element.createTime)
+                    vm.articles.push(element);
+                })
+                return;
+            }
+            for(let i = 0 ;i < res.data.userInfo.collections.length;i ++){
+                for(let j = 0;j < articleInfo.length ;j++){
+                    if(articleInfo[j].title === res.data.userInfo.collections[i].title){
+                        articleInfo[j].isActive = true;
+                    }
+                }
+            }
+            articleInfo.forEach(element => {
+                element.createTime = turnUTCToGMT(element.createTime);
+                vm.articles.push(element);
+            })
+        }).catch(error => {
+            console.log('error', error);
+        })        
     }).catch( error => {
         console.log('error', error);
     })

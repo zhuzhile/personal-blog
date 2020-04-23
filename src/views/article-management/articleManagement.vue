@@ -90,7 +90,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
     @import './articleManagement.less';
     // @import 'mavon-editor/dist/css/index.css';
 </style>

@@ -39,6 +39,6 @@ import {submitAvatarUrl} from '@/apis/personalCenter';
     }
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 
 </style>

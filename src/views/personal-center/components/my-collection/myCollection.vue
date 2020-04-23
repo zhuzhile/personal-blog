@@ -32,6 +32,6 @@ import * as personalCenterRequest from '@/apis/personalCenter.js';
     }
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 
 </style>

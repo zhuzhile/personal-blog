@@ -79,6 +79,6 @@ import Cookie from 'js-cookie';
     }
 </script>
 
-<style lang='less'>
+<style lang='less' scoped>
 
 </style>

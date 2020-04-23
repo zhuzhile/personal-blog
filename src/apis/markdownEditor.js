@@ -37,6 +37,12 @@ export const getAllTagInfo = vm =>{
         res.data.articleInfo.forEach((element, index) => {
             if(element.tag){
                 vm.tags.push(element.tag);
+                for(let i = 0;i < index;i++){
+                    if(element.tag === res.data.articleInfo[i].tag){
+                        vm.tags.pop();
+                        break;
+                    }
+                }
             }
         });
     }).catch(error => {
