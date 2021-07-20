@@ -1,24 +1,15 @@
-# personal_blog
 
-## TODOList
-1. 修改评论样式
-2. 增加暂无评论的样式
-3. 修改个人博客的头部样式
-4. 将头像用到头部
-## Project setup
-```
-yarn install
-```
+## 功能介绍
+- 登录角色介绍
+   -  博客拥有者 (BeMount) 
+   -  普通用户，可自己注册
+   -  游客
+- 不同权限
+   - 拥有者可以编辑文章，发布文章
+   - 登录者可以收藏文章，查看文章，对文章评论进行管理
+- 密码
+   - 博客拥有者密码为123456(仅用于测试)
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+## 线上地址
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+http://101.200.187.225:8081
