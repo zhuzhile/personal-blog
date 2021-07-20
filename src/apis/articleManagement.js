@@ -10,7 +10,6 @@ export const getAllArticleInfo = vm =>{
         let color = ['error','primary','success','yellow','orange'];
         vm.length = res.data.articleInfo.length;
         res.data.articleInfo.forEach((element, index) => {
-            // element.isActive = false;
             if(element.tag){
                 vm.tags.push({tagName:element.tag,tagColor:color[index%5]});
                 for(let i = 0;i < index;i++){
@@ -77,7 +76,6 @@ export const getSplitArticleInfo = vm =>{
             }
             articleInfo.forEach(element => {
                 element.createTime = turnUTCToGMT(element.createTime);
-                // console.log(" vm.articles", vm.articles);
                 vm.articles.push(element);
             })
         }).catch(error => {
@@ -87,19 +85,6 @@ export const getSplitArticleInfo = vm =>{
         console.log('error',error);
     })
 }
-
-
-// async function updateArticleActiveInfo(vm ,title){
-//     let info = await vm.$axios.request({
-//         url:'/article/updateArticleActiveInfo',
-//         method:'get',
-//         params:{
-//             title
-//         }
-//     })
-// } 
-
-
 
 
 export const updateArticleList = (vm, tag) =>{
@@ -112,7 +97,6 @@ export const updateArticleList = (vm, tag) =>{
             current: vm.current
         }
     }).then(res => {
-        // vm.articles.splice(0);
         vm.articles.splice(0);
         let articleInfo = res.data.articleInfo;
         
@@ -163,11 +147,9 @@ export const collectArticle = (vm, content, title, isActive) => {
         }
     }).then( res => {
         if(res.data.result){
-            // getAllArticleInfo(vm);
             getSplitArticleInfo(vm);
             vm.$Message.success(res.data.msg);
         }else{
-            // getAllArticleInfo(vm);
             getSplitArticleInfo(vm);
             vm.$Message.success(res.data.msg);
         }
