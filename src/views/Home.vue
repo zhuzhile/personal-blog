@@ -107,10 +107,9 @@ export default {
      
     })
   },
-  //? 每次竟然会重新读isLogedIn
+
   created(){
       if(localStorage.getItem('jwt')){
-        console.log('----isLogedIn', this.isLogedIn);
         this.userName = Cookie.get('userName');
         this.isLogedIn = true;
         baseUserNameChangeMenuList(this);
@@ -146,7 +145,7 @@ export default {
     handleRouterRedirect(name){
       if(name == 'personalCenter'){
         if(localStorage.getItem('jwt') ){
-          this.$router.push({name:name})
+          this.$router.push({name})
         }else{
           this.$Message.info("请先登录");
        }
@@ -182,7 +181,7 @@ export default {
   }
 
   .header{
-    background-color: yellow;
+    background-color: rgba(253, 114, 109);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -192,6 +191,4 @@ export default {
   .sider{
     background-color:rgb(255, 255, 255);
   }
-
-
 </style>

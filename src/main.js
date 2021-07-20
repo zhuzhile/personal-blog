@@ -18,7 +18,7 @@ Vue.use(ViewUI);
 Vue.use(mavonEditor)
 
 Vue.prototype.$axios = axios.create({
-  baseURL:"http://localhost:30000"
+  baseURL:"http://101.200.187.225:30000"
 });
 
 Vue.prototype.$axios.interceptors.request.use(function (config) {

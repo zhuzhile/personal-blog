@@ -5,7 +5,7 @@ export const login = (vm, name) =>{
     vm.$axios.request({
         url:'/login/signIn',
         data:{
-           userName:vm.formData.user,
+           userName:vm.formData.user.toLowerCase(),
            password:vm.formData.password
         },
         method:'post'
@@ -15,26 +15,21 @@ export const login = (vm, name) =>{
             vm.$Message.warning(res.data.message);
             vm.$refs[name].resetFields();
         }else{
-            // getSplitArticleInfo(vm).then(res => {
+
                 vm.isShowlogDialog = false;
                 vm.isLogedIn = true;
                 vm.$Message.success('登录成功');
-                console.log('------isLogedIn', vm.isLogedIn);
                 Cookie.set('userName', vm.formData.user,{ expires: 1 });
                 vm.userName = Cookie.get('userName');
-                if(vm.formData.user === 'BeMount'){
+                if(vm.formData.user.toLowerCase() === 'bemount'){
                     vm.updateMenuList();
-                    // vm.$store.commit('updateMenuList');
                 }else{
                     vm.updateUserMenuList();
                 }
-                console.log('Cookie', Cookie.get('userName'))
+
                 vm.$refs[name].resetFields();
                 localStorage.setItem('jwt',res.data.jwt);
-                // vm.$router.go(0);
                 vm.reload();
-                // });
-           
         }
     }).catch(err=>{
         console.log(err);
@@ -62,10 +57,6 @@ export const addUsers = (vm, name) =>{
         console.log(err);
     })
 }
-
-
-
-
 
 
 // 根据JWT获取用户信息

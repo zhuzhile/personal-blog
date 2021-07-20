@@ -58,7 +58,6 @@ export default {
         }
     },
     created(){
-        // articleManagementRequest.clearAllActive(this);
         articleManagementRequest.getAllArticleInfo(this); 
         articleManagementRequest.getSplitArticleInfo(this);
     },
@@ -71,7 +70,6 @@ export default {
                 this.$Message.warning('请登录后收藏');
                 return;
             }
-            console.log("----isActive", isActive);
             articleManagementRequest.collectArticle(this, content, title, isActive);
         },
         getArticles(page){

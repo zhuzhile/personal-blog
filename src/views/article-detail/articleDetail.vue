@@ -56,23 +56,18 @@ export default{
           } 
       }
     },
-    // computed:{
-    //     content(){
-    //         return this.$route.params.content;
-    //     }
-    // },
+
     created(){
-        // 
        if( this.$route.params.title ){
            localStorage.setItem('content', this.$route.params.content);
            localStorage.setItem('title', this.$route.params.title);
-       }
-        // console.log("route", this.$route.params);
+        }
         this.content = localStorage.getItem('content');
         this.title = localStorage.getItem('title');
     
         commentRequest.getAllCommentsOfArticle(this);
     },
+
     destroyed(){
         localStorage.removeItem('content');
         localStorage.removeItem('title');
