@@ -6,11 +6,9 @@
        <menuComponent :menuList = 'menuList'></menuComponent>
       </Sider>
       <Layout>
-        <Header class="header" height='50'>
-            <div class="header-content-left">
-              <!-- <img src="../assets/blog_logo.jpg" alt="BeMount个人博客logo" height='50px' style="margin-top:22px"> -->
-            </div> 
-             <div v-if='isLogedIn'>
+        <div class="header">
+             <div class = "header-right"></div>
+             <div v-if='isLogedIn' class = "header-left">
                <Dropdown @on-click="handleRouterRedirect">
                  <a href="javascript:void(0)">
                   <template v-if = "avatarUrl">
@@ -32,7 +30,7 @@
                   <span>登录</span>
             </div> 
            
-        </Header>
+        </div>
        <Modal
         v-model="isShowlogDialog"
         title="登录"
@@ -115,6 +113,15 @@ export default {
   },
 
    created(){
+      if(this.$root.scrollHeight > window.innerHeight){
+        
+        console.error("----");
+      }else{
+
+        console.log(this.$root,window.innerHeight);
+
+        // console.log("----else")
+      }
       if(localStorage.getItem('jwt')){
         this.userName = Cookie.get('userName');
         this.isLogedIn = true;
@@ -183,20 +190,34 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .contentLayout,
-  .sider,
-  .home{
-    height:100vh;
+  .home,
+  .contentLayout{
+    height:100%;
+    width:100%;
+  }
+
+  .sider{
+    height:100%;
   }
 
   .header{
     background-color: rgba(253, 114, 109);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    // position: fixed;
+    width: calc(100% - 240px);
+    padding: 0 50px;
+    height: 64px;
+    line-height: 64px;
+    position: fixed;
+    z-index: 10000;
+    &-left{
+     position: absolute;
+     right: 50px;
+     justify-content: space-between;
+    }
   } 
 
+  .content{
+    margin-top:64px;
+  }
 
   .sider{
     background-color:rgb(255, 255, 255);
