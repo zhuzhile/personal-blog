@@ -9,7 +9,7 @@
                 <div>
                     个人头像: 
                     <Avatar  size='large' style="margin-left:10px" v-if="personalInfoForm.avatarUrl" :src="personalInfoForm.avatarUrl"></Avatar>
-                    <Avatar  size='large' style="margin-left:10px" v-else>{{userName}}</Avatar>
+                    <Avatar  size='large' style="margin-left:10px" v-else>{{userName[0].toUpperCase()}}</Avatar>
                 </div>
                 
             </FormItem>

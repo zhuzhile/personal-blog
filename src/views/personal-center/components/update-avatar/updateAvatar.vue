@@ -19,6 +19,8 @@
 
 <script>
 import {submitAvatarUrl} from '@/apis/personalCenter';
+import {mapMutations} from 'vuex'
+import Cookie from 'js-cookie'
 
     export default {
         data(){
@@ -27,12 +29,14 @@ import {submitAvatarUrl} from '@/apis/personalCenter';
             }
         },
         methods:{
-          
+            ...mapMutations(['initAvatarUrl','initUserName']),
             submitAvatarUrl(){
                 if(!this.avatarUrl){
                     this.$Message.warning("头像URL不可为空");
                     return;
                 }
+                this.initAvatarUrl({url:this.avatarUrl});
+                this.initUserName({name: Cookie.get('userName')});
                 submitAvatarUrl(this);
             }
         }

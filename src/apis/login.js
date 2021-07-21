@@ -1,5 +1,6 @@
 import Cookie from 'js-cookie';
-import {getSplitArticleInfo} from '@/apis/articleManagement.js'
+import {getAvatarUrl} from '@/apis/personalCenter.js';
+
 //登录
 export const login = (vm, name) =>{
     vm.$axios.request({
@@ -29,7 +30,9 @@ export const login = (vm, name) =>{
 
                 vm.$refs[name].resetFields();
                 localStorage.setItem('jwt',res.data.jwt);
+                getAvatarUrl(vm);
                 vm.reload();
+
         }
     }).catch(err=>{
         console.log(err);

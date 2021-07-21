@@ -13,7 +13,12 @@
              <div v-if='isLogedIn'>
                <Dropdown @on-click="handleRouterRedirect">
                  <a href="javascript:void(0)">
-                  {{userName}}
+                  <template v-if = "avatarUrl">
+                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf" :src = "avatarUrl">{{userName[0].toUpperCase()}}</Avatar>
+                  </template>
+                  <template v-else>
+                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf">{{userName[0].toUpperCase()}}</Avatar>
+                  </template>
                   <Icon type="ios-arrow-down"></Icon>
                  </a>
                 <DropdownMenu slot="list" >
@@ -58,17 +63,12 @@ import * as loginRequest from '../apis/login'
 import Cookie from 'js-cookie'
 import {appRouters} from '@/router/router.js'
 import menuComponent from '@/components/menu-component/menuComponent.vue';
-import {mapState,mapActions,mapMutations} from 'vuex';
+import {mapState,mapMutations} from 'vuex';
 import {baseUserNameChangeMenuList} from '@/util/util.js';
 
 
 export default {
   name: 'home',
-  // provide() { // 注册一个方法
-  //   return {
-  //     reload: this.reload
-  //   }
-  // },
   data(){
     return {
         isShowlogDialog:false,//是否显示登陆弹框
@@ -104,11 +104,17 @@ export default {
       menuList: state => {
         return state.app.menuList;
       },
+      avatarUrl: state => {
+        return state.user.avatarUrl;
+      },
+      name: state => {
+        return state.user.name;
+      }
      
     })
   },
 
-  created(){
+   created(){
       if(localStorage.getItem('jwt')){
         this.userName = Cookie.get('userName');
         this.isLogedIn = true;
@@ -133,14 +139,15 @@ export default {
         this.isRouterAlive = true
       })
     },
-    ...mapMutations(['updateMenuList','updateUserMenuList']
-    ),
+
+    ...mapMutations(['updateMenuList','updateUserMenuList','initAvatarUrl']),
    
     // 点击登录注册
     login(){  
       this.$refs['formData'].resetFields();
       this.isShowlogDialog = true;
     },
+
     //个人中心退出登录处理
     handleRouterRedirect(name){
       if(name == 'personalCenter'){
@@ -150,7 +157,7 @@ export default {
           this.$Message.info("请先登录");
        }
       }else{
-        localStorage.removeItem('jwt');
+        localStorage.clear();
         Cookie.remove('userName');
         // this.$router.go(0);
         this.reload();
@@ -159,6 +166,8 @@ export default {
         this.$router.push({name:'articleManagementIndex'})
       }
     },
+
+
     // 登录表单处理
     handleSubmit(name){
             this.$refs[name].validate((valid) => {
@@ -185,6 +194,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    // position: fixed;
   } 
 
 

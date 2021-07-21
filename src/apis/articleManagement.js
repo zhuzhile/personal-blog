@@ -12,7 +12,7 @@ export const getAllArticleInfo = vm =>{
         res.data.articleInfo.forEach((element, index) => {
             if(element.tag){
                 vm.tags.push({tagName:element.tag,tagColor:color[index%5]});
-                for(let i = 0;i < index;i++){
+                for(let i = 0;i < index; i++){
                     if(element.tag === res.data.articleInfo[i].tag){
                         vm.tags.pop();
                         break;
@@ -50,7 +50,7 @@ export const getSplitArticleInfo = vm =>{
     }).then(res => {
         vm.articles.splice(0);
         let articleInfo = res.data.articleInfo;
-        
+                
         articleInfo.forEach(element => {
             element.isActive = false;
         })
@@ -59,7 +59,6 @@ export const getSplitArticleInfo = vm =>{
             url:'/personalCenter/getCompleteUserInfo',
             method:'get'
         }).then(res => {
-            console.log('----res', res);
             if(!res.data.userInfo){
                 articleInfo.forEach(element => {
                     element.createTime = turnUTCToGMT(element.createTime)
@@ -108,7 +107,6 @@ export const updateArticleList = (vm, tag) =>{
             url:'/personalCenter/getCompleteUserInfo',
             method:'get'
         }).then(res => {
-            console.log('----res', res);
             if(!res.data.userInfo){
                 articleInfo.forEach(element => {
                     element.createTime = turnUTCToGMT(element.createTime)
@@ -148,10 +146,12 @@ export const collectArticle = (vm, content, title, isActive) => {
     }).then( res => {
         if(res.data.result){
             getSplitArticleInfo(vm);
+            // vm.isActive = true;
             vm.$Message.success(res.data.msg);
         }else{
             getSplitArticleInfo(vm);
-            vm.$Message.success(res.data.msg);
+            // vm.isActive = false;
+            vm.$Message.warning(res.data.msg);
         }
 
     }).catch(error => {
