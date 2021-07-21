@@ -2,25 +2,27 @@
 
 <div class="article-management">
     <!-- 分类: -->
-    <div style="marginBottom:20px">
+    <div style="margin:10px">
         <Tag size='large' color="orange" @click.native = "updateArticleList()">全部</Tag>
-        <span v-for="(item, index) in tags" :key="index + '-label'"   style="margin-bottom:10px;margin-left:5px;">
-          <Tag :color='item.tagColor' size='large' @click.native= "updateArticleList(item.tagName)" >{{item.tagName}}</Tag>
+        <span v-for="(item, index) in tags" :key="index + '-label'"   style="margin-left:10px;">
+            <Tag :color='item.tagColor' size='large' @click.native= "updateArticleList(item.tagName)" >{{item.tagName}}</Tag>
         </span>
     </div>
-    
+
     <div v-for="(item, index) in articles" :key="index" >
         <div  class ="article-management-style">
             <div class="article-management-style-title">
                    <span><Icon type="ios-leaf-outline" size="30px" /> {{item.title}} </span> 
             </div>
+
             <Divider/>
+
             <div class="article-management-style-description">
                 <span>{{item.description}}</span>
             </div>
             <span style="margin-left:80%;margin-top:5px;">创建于: {{item.createTime}}</span>
 
-            <div class="article-management-style-detail" >
+            <div class="article-management-style-detail">
                 <span style="margin-right:10px" >
                     <Icon type="ios-heart-outline"  :class = "{active: item.isActive}" style="margin-right:5px" size="28px" @click = "collectArticle(item.content, item.title, item.isActive)"/>收藏
                 </span>
@@ -51,6 +53,7 @@ export default {
            isShowPage:true,
            length:0,
            pageSize: 3,
+        //    isActive: false,
            current: 1,
            pageStyle:{
                float:'right',
@@ -70,6 +73,7 @@ export default {
                 this.$Message.warning('请登录后收藏');
                 return;
             }
+            // this.isActive = true;
             articleManagementRequest.collectArticle(this, content, title, isActive);
         },
         getArticles(page){
@@ -90,5 +94,4 @@ export default {
 
 <style lang="less" scoped>
     @import './articleManagement.less';
-    // @import 'mavon-editor/dist/css/index.css';
 </style>

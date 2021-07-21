@@ -21,7 +21,6 @@ export const getCompleteInfo = vm => {
         url:'/personalCenter/getCompleteUserInfo',
         method:'get'
     }).then(res => {
-        console.log('getCompleteInfo', res);
         vm.personalInfoForm.nickName = res.data.userInfo.name;
         vm.personalInfoForm.avatarUrl = res.data.userInfo.avatarUrl;
         vm.personalInfoForm.realName = res.data.userInfo.realName;
@@ -32,6 +31,22 @@ export const getCompleteInfo = vm => {
         console.log("error", error);
     })
 }
+
+// 获得头像地址
+export const getAvatarUrl= vm => {
+    vm.$axios.request({
+        url:'/personalCenter/getCompleteUserInfo',
+        method:'get'
+    }).then(res => {
+        console.log("getAvatarUrl", url);
+        let url = res.data.userInfo.avatarUrl;
+        // vm.$store.commit('initAvatarUrl', {url});
+        vm.initAvatarUrl({url});
+    }).catch(error => {
+        console.log("error", error);
+    })
+}
+
 
 // 修改用户头像
 export const submitAvatarUrl = vm => {

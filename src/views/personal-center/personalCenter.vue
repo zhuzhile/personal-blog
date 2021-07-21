@@ -1,5 +1,5 @@
 <template>
-   <Row type='flex' justify="space-around">
+   <Row type='flex' justify="space-around" style = "margin-top: 20px;">
        <Col span='3' offset='1'>
         <Menu @on-select="redirectToOtherRouter">
             <MenuItem name='personalInfo'>
