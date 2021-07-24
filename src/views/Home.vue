@@ -191,7 +191,9 @@ export default {
 
 <style lang="less" scoped>
   .sider{
-    min-height: 100vh;
+    height: 100vh;
+    background-color:rgb(255, 255, 255);
+    position: fixed;
   }
 
   .header{
@@ -199,9 +201,8 @@ export default {
     width: calc(100% - 240px);
     padding: 0 50px;
     height: 64px;
-    // right:@barWidth;
+    left: 240px;
     top: 0px;
-    // right:calc(100vw - 100%);
     line-height: 64px;
     position: fixed;
     z-index: 10000;
@@ -213,11 +214,11 @@ export default {
   } 
 
   .content{
-    margin-top:64px;
-  }
-
-  .sider{
-    background-color:rgb(255, 255, 255);
+    position: absolute;
+    left: 240px;
+    top: 64px;
+    width: calc(100% - 240px);
+    min-height: calc(100% - 64px);
   }
 
   @media  screen and (max-width:960px) {
@@ -228,6 +229,5 @@ export default {
     .header{
       width: 100%;
     }
-
   }
 </style>
