@@ -8,7 +8,7 @@
       <Layout>
         <div class="header">
              <div class = "header-right"></div>
-             <div v-if='isLogedIn' class = "header-left">
+             <div v-if='isLogedIn' class = "header-right">
                <Dropdown @on-click="handleRouterRedirect">
                  <a href="javascript:void(0)">
                   <template v-if = "avatarUrl">
@@ -25,7 +25,7 @@
                 </DropdownMenu>
               </Dropdown>
             </div>
-            <div class='header-content-right' @click="login" v-else>
+            <div class='header-right' @click="login" v-else>
                   <Avatar icon="ios-person"  size="large" style="marginRight:5px"/>
                   <span>登录</span>
             </div> 
@@ -35,7 +35,7 @@
         v-model="isShowlogDialog"
         title="登录"
         >
-        <Form ref="formData" :model="formData" :rules="rules" label-position="left" :label-width="80">
+        <Form ref="formData" :model="formData" :rules="rules" label-position="left" :label-width="80"  >
             <FormItem prop="user" label="用户名:">
                 <Input type="text" v-model="formData.user" placeholder="用户名"/>
             </FormItem>
@@ -113,14 +113,14 @@ export default {
   },
 
    created(){
-      if(this.$root.scrollHeight > window.innerHeight){
+      if(document.body.innerWidth > document.body.offsetWidth){
         
-        console.error("----");
+        console.error("----", );
       }else{
+        // console.log(this.$root,window.innerHeight);
+        console.log(document.body.clientWidth, document.body.offsetWidth);
 
-        console.log(this.$root,window.innerHeight);
-
-        // console.log("----else")
+        console.log("----else")
       }
       if(localStorage.getItem('jwt')){
         this.userName = Cookie.get('userName');
@@ -190,14 +190,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .home,
-  .contentLayout{
-    height:100%;
-    width:100%;
-  }
-
   .sider{
-    height:100%;
+    min-height: 100vh;
   }
 
   .header{
@@ -205,10 +199,13 @@ export default {
     width: calc(100% - 240px);
     padding: 0 50px;
     height: 64px;
+    // right:@barWidth;
+    top: 0px;
+    // right:calc(100vw - 100%);
     line-height: 64px;
     position: fixed;
     z-index: 10000;
-    &-left{
+    &-right{
      position: absolute;
      right: 50px;
      justify-content: space-between;
@@ -221,5 +218,16 @@ export default {
 
   .sider{
     background-color:rgb(255, 255, 255);
+  }
+
+  @media  screen and (max-width:960px) {
+    .sider{
+      display: none;
+    }
+
+    .header{
+      width: 100%;
+    }
+
   }
 </style>
