@@ -33,8 +33,8 @@
         </div>
        <Modal
         v-model="isShowlogDialog"
-        title="登录"
         :z-index = "10001"
+        title="登录"
         >
         <Form ref="formData" :model="formData" :rules="rules" label-position="left" :label-width="80"  >
             <FormItem prop="user" label="用户名:">
@@ -114,6 +114,10 @@ export default {
   },
 
    created(){
+      this.$Notice.config({
+        top: 74,
+        duration: 3
+}     );
       if(localStorage.getItem('jwt')){
         this.userName = Cookie.get('userName');
         this.isLogedIn = true;

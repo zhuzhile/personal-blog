@@ -12,14 +12,17 @@ export const login = (vm, name) =>{
         method:'post'
     }).then(res=>{
         if(res.data.result == false){
-            vm.$Message.warning(res.data.message);
+            vm.$Notice.warning({ title: 'Fail',
+                                 desc: '重新登录'});
             vm.$refs[name].resetFields();
         }else{
                 vm.isShowlogDialog = false;
                 vm.isLogedIn = true;
-                vm.$Message.success({content: 'Tips for manual closing',
-                duration: 30,
-                closable: true});
+                vm.$Notice.success({
+                    render: h => {
+                        return h('span', {style:{Zindex: "10001", top: "64px"}}, "登录成功")
+                    }
+                });
                 Cookie.set('userName', vm.formData.user,{ expires: 1 });
                 vm.userName = Cookie.get('userName');
                 if(vm.formData.user.toLowerCase() === 'bemount'){
@@ -50,10 +53,16 @@ export const addUsers = (vm, name) =>{
         method:'post'
     }).then(res=>{
         if(res.data.result){
-            vm.$Message.success('新增用户成功');
+            vm.$Notice.success({
+                render: h => {
+                    return h('span', {style:{Zindex: "10001", top: "64px"}}, "新增用户成功")
+                }
+            });
             vm.$refs[name].resetFields();
         }else{
-            vm.$Message.warning(res.data.message);
+            vm.$Notice.warning({ render: h => {
+                return h('span', {style:{Zindex: "10001", top: "64px"}}, "该用户已存在")
+            }});
         }
     }).catch(err=>{
         console.log(err);
