@@ -12,10 +12,10 @@
                <Dropdown @on-click="handleRouterRedirect">
                  <a href="javascript:void(0)">
                   <template v-if = "avatarUrl">
-                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf" :src = "avatarUrl">{{userName[0].toUpperCase()}}</Avatar>
+                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf" :src = "avatarUrl"></Avatar>
                   </template>
                   <template v-else>
-                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf">{{userName[0].toUpperCase()}}</Avatar>
+                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf">{{userName.slice(0,1).toUpperCase()}}</Avatar>
                   </template>
                   <Icon type="ios-arrow-down"></Icon>
                  </a>
@@ -34,6 +34,7 @@
        <Modal
         v-model="isShowlogDialog"
         title="登录"
+        :z-index = "10001"
         >
         <Form ref="formData" :model="formData" :rules="rules" label-position="left" :label-width="80"  >
             <FormItem prop="user" label="用户名:">
@@ -113,15 +114,6 @@ export default {
   },
 
    created(){
-      if(document.body.innerWidth > document.body.offsetWidth){
-        
-        console.error("----", );
-      }else{
-        // console.log(this.$root,window.innerHeight);
-        console.log(document.body.clientWidth, document.body.offsetWidth);
-
-        console.log("----else")
-      }
       if(localStorage.getItem('jwt')){
         this.userName = Cookie.get('userName');
         this.isLogedIn = true;
@@ -140,6 +132,7 @@ export default {
                     }
               })
     },
+
     reload() {
       this.isRouterAlive = false
       this.$nextTick(function() {
@@ -166,7 +159,6 @@ export default {
       }else{
         localStorage.clear();
         Cookie.remove('userName');
-        // this.$router.go(0);
         this.reload();
         this.$store.commit('initMenuList', appRouters);
         this.isLogedIn = false;
@@ -221,13 +213,16 @@ export default {
     min-height: calc(100% - 64px);
   }
 
+
   @media  screen and (max-width:960px) {
     .sider{
       display: none;
     }
 
-    .header{
-      width: 100%;
+    .header,
+    .content{
+      left: 0px;
+      width: 100vw;
     }
   }
 </style>

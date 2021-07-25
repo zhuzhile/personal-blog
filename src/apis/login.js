@@ -11,15 +11,15 @@ export const login = (vm, name) =>{
         },
         method:'post'
     }).then(res=>{
-
         if(res.data.result == false){
             vm.$Message.warning(res.data.message);
             vm.$refs[name].resetFields();
         }else{
-
                 vm.isShowlogDialog = false;
                 vm.isLogedIn = true;
-                vm.$Message.success('登录成功');
+                vm.$Message.success({content: 'Tips for manual closing',
+                duration: 30,
+                closable: true});
                 Cookie.set('userName', vm.formData.user,{ expires: 1 });
                 vm.userName = Cookie.get('userName');
                 if(vm.formData.user.toLowerCase() === 'bemount'){
@@ -32,7 +32,6 @@ export const login = (vm, name) =>{
                 localStorage.setItem('jwt',res.data.jwt);
                 getAvatarUrl(vm);
                 vm.reload();
-
         }
     }).catch(err=>{
         console.log(err);

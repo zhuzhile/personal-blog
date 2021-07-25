@@ -38,7 +38,6 @@ export const getAvatarUrl= vm => {
         url:'/personalCenter/getCompleteUserInfo',
         method:'get'
     }).then(res => {
-        console.log("getAvatarUrl", url);
         let url = res.data.userInfo.avatarUrl;
         // vm.$store.commit('initAvatarUrl', {url});
         vm.initAvatarUrl({url});

@@ -1,10 +1,9 @@
-import  Cookie from 'js-cookie';
 import moment from 'moment'
 
 const OWNER_NAME = 'bemount'
 
 export const baseUserNameChangeMenuList = (vm) =>{
-    if(Cookie.get('userName').toLowerCase() === OWNER_NAME){
+    if(vm.userName && vm.userName.toLowerCase() === OWNER_NAME){
         vm.$store.commit('updateMenuList');
     }else{
         vm.$store.commit('updateUserMenuList');

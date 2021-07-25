@@ -20,7 +20,9 @@
             <div class="article-management-style-description">
                 <span>{{item.description}}</span>
             </div>
-            <span style="margin-left:80%;margin-top:5px;">创建于: {{item.createTime}}</span>
+            <!-- <div> -->
+                <span style="margin-left:80%;margin-top:5px;"> 创建于: {{item.createTime}}</span>
+            <!-- </div> -->
 
             <div class="article-management-style-detail">
                 <span style="margin-right:10px" >
@@ -68,6 +70,7 @@ export default {
         findArticleDetail(content, title){
             this.$router.push({name:'articleDetailIndex',params:{content: content,title: title}});
         },
+
         collectArticle(content, title, isActive){
             if(!Cookie.get('userName')){
                 this.$Message.warning('请登录后收藏');
@@ -76,10 +79,12 @@ export default {
             // this.isActive = true;
             articleManagementRequest.collectArticle(this, content, title, isActive);
         },
+
         getArticles(page){
             this.current = page;
             articleManagementRequest.getSplitArticleInfo(this);
         },
+
         updateArticleList(tag){
             if(tag){
                 this.isShowPage = false;
