@@ -15,7 +15,7 @@
                     <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf" :src = "avatarUrl"></Avatar>
                   </template>
                   <template v-else>
-                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf">{{userName.slice(0,1).toUpperCase()}}</Avatar>
+                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf">{userName.slice(0,1).toUpperCase()}}</Avatar>
                   </template>
                   <Icon type="ios-arrow-down"></Icon>
                  </a>
@@ -114,10 +114,12 @@ export default {
   },
 
    created(){
+      
       this.$Notice.config({
         top: 74,
         duration: 3
-}     );
+      });
+
       if(localStorage.getItem('jwt')){
         this.userName = Cookie.get('userName');
         this.isLogedIn = true;
