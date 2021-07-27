@@ -1,5 +1,6 @@
 import Cookie from 'js-cookie';
 import {getAvatarUrl} from '@/apis/personalCenter.js';
+import Cookies from 'js-cookie';
 
 //登录
 export const login = (vm, name) =>{
@@ -23,7 +24,8 @@ export const login = (vm, name) =>{
                         return h('span', {style:{Zindex: "10001", top: "64px"}}, "登录成功")
                     }
                 });
-                Cookie.set('userName', vm.formData.user,{ expires: 1 });
+                // Cookies.withAttrib
+                Cookie.set('userName', vm.formData.user,{ expires: 1,secure: true});
                 vm.userName = Cookie.get('userName');
                 if(vm.formData.user.toLowerCase() === 'bemount'){
                     vm.updateMenuList();
