@@ -26,7 +26,7 @@
 
             <div class="article-management-style-detail">
                 <span style="margin-right:10px" >
-                    <Icon type="ios-heart-outline"  :class = "{active: item.isActive}" style="margin-right:5px" size="28px" @click = "collectArticle(item.content, item.title, item.isActive)"/>收藏
+                    <Icon type="ios-heart-outline"  :class = "{active: isActive[item.title]}" style="margin-right:5px" size="28px" @click = "collectArticle(item.content, item.title, isActive[item.title])"/>收藏
                 </span>
                 <span>
                     <Icon type="ios-folder-outline" style="margin-right:5px" size="26px"/>
@@ -55,7 +55,7 @@ export default {
            isShowPage:true,
            length:0,
            pageSize: 3,
-        //    isActive: false,
+           isActive: {},
            current: 1,
            pageStyle:{
                float:'right',
@@ -63,9 +63,16 @@ export default {
         }
     },
     created(){
+        console.log("---- created articleManagement");
         articleManagementRequest.getAllArticleInfo(this); 
         articleManagementRequest.getSplitArticleInfo(this);
     },
+
+    // activated(){
+    //     articleManagementRequest.getAllArticleInfo(this); 
+    //     articleManagementRequest.getSplitArticleInfo(this);
+    // },
+
     methods:{
         findArticleDetail(content, title){
             this.$router.push({name:'articleDetailIndex',params:{content: content,title: title}});

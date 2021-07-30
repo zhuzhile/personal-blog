@@ -15,7 +15,7 @@
                     <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf" :src = "avatarUrl"></Avatar>
                   </template>
                   <template v-else>
-                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf">{{userName.slice(0,1).toUpperCase()}}</Avatar>
+                    <Avatar size = "large" style="margin-right:10px; color: #f56a00;background-color: #fde3cf">{{userName | capitalize}}</Avatar>
                   </template>
                   <Icon type="ios-arrow-down"></Icon>
                  </a>
@@ -50,7 +50,11 @@
         </div>
        </Modal>
         <Content class="content" style='width:calc( ~"100wh - 200px");height: calc(~"100vh - 50px"); background-color: aliceblue;'>
-          <router-view v-if="isRouterAlive"/>
+          <!-- <keep-alive exclude="articleManagementIndex"> -->
+          <!-- <transition name="fade"> -->
+            <router-view v-if="isRouterAlive"/>
+          <!-- </transition> -->
+          <!-- </keep-alive> -->
         </Content>
       </Layout>
     </Layout>
@@ -68,6 +72,14 @@ import {baseUserNameChangeMenuList} from '@/util/util.js';
 
 export default {
   name: 'home',
+  filters:{
+    capitalize(value){
+      if(!value){
+        return "N";
+      }
+      return value.charAt(0).toUpperCase();
+    }
+  },
   data(){
     return {
         isShowlogDialog:false,//是否显示登陆弹框
@@ -140,7 +152,8 @@ export default {
     },
 
     reload() {
-      this.isRouterAlive = false
+      this.isRouterAlive = false;
+
       this.$nextTick(function() {
         this.isRouterAlive = true
       })
@@ -217,6 +230,14 @@ export default {
     top: 64px;
     width: calc(100% - 240px);
     min-height: calc(100% - 64px);
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .10s;
+  }
+
+ .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    opacity: 0;
   }
 
 

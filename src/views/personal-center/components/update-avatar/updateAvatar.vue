@@ -4,10 +4,10 @@
             <Icon type="ios-film-outline"></Icon>
             头像修改
         </p>
-        <Upload action="http://101.200.187.225/imgs">
+        <!-- <Upload action="http://101.200.187.225/imgs">
             <Button type="ghost" icon="ios-cloud-upload-outline">上传文件</Button>
-        </Upload>
-        <!-- <div>
+        </Upload> -->
+        <div>
             AvatarUrl: 
             <Input v-model="avatarUrl">
                <Icon type="ios-camera-outline" slot='prefix'/>
@@ -16,7 +16,7 @@
         </div>
         <div style="margin-top:50px">
             <Button type="info" @click="submitAvatarUrl">提交</Button>
-        </div> -->
+        </div>
     </Card>
 </template>
 

@@ -93,27 +93,27 @@ export const otherRouters = {
                 {
                     path:'personalInfo',
                     name:'personalInfo',
-                    component: personalInfo => import('@/views/personal-center/components/personal-info/personalInfo')
+                    component: personalInfo => import(/*webpackChunkName: "personalInfo"*/'@/views/personal-center/components/personal-info/personalInfo')
                 },
                 {
                     path:'updateAvatar',
                     name:'updateAvatar',
-                    component: updateAvatar => import('@/views/personal-center/components/update-avatar/updateAvatar')
+                    component: updateAvatar => import(/* webpackChunkName: "personalInfo"*/'@/views/personal-center/components/update-avatar/updateAvatar')
                 },
                 {
                     path:'updatePassword',
                     name:'updatePassword',
-                    component: updatePassword => import('@/views/personal-center/components/update-password/updatePassword')
+                    component: updatePassword => import(/* webpackChunkName: "personalInfo"*/'@/views/personal-center/components/update-password/updatePassword')
                 },
                 {
                     path:'completeInfo',
                     name:'completeInfo',
-                    component: completeInfo => import("@/views/personal-center/components/complete-info/completeInfo")
+                    component: completeInfo => import(/* webpackChunkName: "personalInfo"*/"@/views/personal-center/components/complete-info/completeInfo")
                 },
                 {
                     path:'myCollection',
                     name:"myCollection",
-                    component: myCollection => import('@/views/personal-center/components/my-collection/myCollection')
+                    component: myCollection => import(/* webpackChunkName: "personalInfo"*/'@/views/personal-center/components/my-collection/myCollection')
                 }
             ]
         }

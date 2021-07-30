@@ -40,7 +40,6 @@ export default {
     },
     methods:{
         redirectToOtherRouter(name){
-            console.log(name);
             this.$router.push({name:name});
         }
     }
