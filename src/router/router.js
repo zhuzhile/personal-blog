@@ -11,7 +11,7 @@ export const appRouters = [
             {
                 path:'index',
                 name:'articleManagementIndex',
-                component: articleManagement => import('@/views/article-management/articleManagement')
+                component: articleManagement => import(/*webpackChunkName: "ArticleManagement"*/'@/views/article-management/articleManagement')
             }
         ]
         
@@ -27,7 +27,7 @@ export const appRouters = [
         {
             path:'index',
             name:'commentManagementIndex',
-            component: commentManagement => import('@/views/comment-management/comment-management')
+            component: commentManagement => import(/*webpackChunkName: "commentManagement"*/'@/views/comment-management/comment-management')
         }
      ]
     },
@@ -41,7 +41,7 @@ export const appRouters = [
             {
                 path:'index',
                 name:'aboutWriterIndex',
-                component: aboutWriter => import('@/views/about-writer/aboutWriter')
+                component: aboutWriter => import(/*webpackChunkName: "aboutWriter"*/'@/views/about-writer/aboutWriter')
             }
         ] 
     },
@@ -56,7 +56,7 @@ export const appRouters = [
             {
                 path:'index',
                 name:'markdowEditorIndex',
-                component: markdownEidtor => import('@/views/markdown-editor/markdown-editor')
+                component: markdownEidtor => import(/*webpackChunkName: "markdownEidtor"*/'@/views/markdown-editor/markdown-editor')
             }
         ]
 
@@ -72,7 +72,7 @@ export const articleDetailRouter = {
         {
             path:'/index',
             name:'articleDetailIndex',
-            component: articleDetail => import('@/views/article-detail/articleDetail')
+            component: articleDetail => import(/*webpackChunkName: "articleDetail"*/'@/views/article-detail/articleDetail')
         }
     ]
 }
@@ -88,7 +88,7 @@ export const otherRouters = {
             name:'personalCenter',
             title:'个人中心',
             redirect:'/personalCenter/personalInfo',
-            component: personalCenter => import('@/views/personal-center/personalCenter'),
+            component: personalCenter => import(/*webpackChunkName: "PersonalInfoCenter"*/'@/views/personal-center/personalCenter'),
             children:[
                 {
                     path:'personalInfo',
@@ -98,22 +98,22 @@ export const otherRouters = {
                 {
                     path:'updateAvatar',
                     name:'updateAvatar',
-                    component: updateAvatar => import(/* webpackChunkName: "personalInfo"*/'@/views/personal-center/components/update-avatar/updateAvatar')
+                    component: updateAvatar => import(/* webpackChunkName: "updateAvatar"*/'@/views/personal-center/components/update-avatar/updateAvatar')
                 },
                 {
                     path:'updatePassword',
                     name:'updatePassword',
-                    component: updatePassword => import(/* webpackChunkName: "personalInfo"*/'@/views/personal-center/components/update-password/updatePassword')
+                    component: updatePassword => import(/* webpackChunkName: "updatePassword"*/'@/views/personal-center/components/update-password/updatePassword')
                 },
                 {
                     path:'completeInfo',
                     name:'completeInfo',
-                    component: completeInfo => import(/* webpackChunkName: "personalInfo"*/"@/views/personal-center/components/complete-info/completeInfo")
+                    component: completeInfo => import(/* webpackChunkName: "completeInfo"*/"@/views/personal-center/components/complete-info/completeInfo")
                 },
                 {
                     path:'myCollection',
                     name:"myCollection",
-                    component: myCollection => import(/* webpackChunkName: "personalInfo"*/'@/views/personal-center/components/my-collection/myCollection')
+                    component: myCollection => import(/* webpackChunkName: "myCollection"*/'@/views/personal-center/components/my-collection/myCollection')
                 }
             ]
         }

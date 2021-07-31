@@ -63,7 +63,7 @@ export default {
         }
     },
     created(){
-        console.log("---- created articleManagement");
+        // console.log("---- created articleManagement");
         articleManagementRequest.getAllArticleInfo(this); 
         articleManagementRequest.getSplitArticleInfo(this);
     },
