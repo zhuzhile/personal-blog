@@ -26,6 +26,7 @@ export const login = (vm, name) =>{
                 });
                 // Cookies.withAttrib
                 Cookie.set('userName', vm.formData.user);
+                Cookie.set("count_change_avatar", 2);
                 vm.userName = Cookie.get('userName');
                 if(vm.formData.user.toLowerCase() === 'bemount'){
                     vm.updateMenuList();

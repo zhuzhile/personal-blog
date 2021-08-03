@@ -39,7 +39,6 @@ export const getAvatarUrl= vm => {
         method:'get'
     }).then(res => {
         let url = res.data.userInfo.avatarUrl;
-        // vm.$store.commit('initAvatarUrl', {url});
         vm.initAvatarUrl({url});
     }).catch(error => {
         console.log("error", error);
@@ -58,7 +57,17 @@ export const submitAvatarUrl = vm => {
         }
     }).then( res =>{
         vm.avatarUrl = '';
-        vm.$Message.success(res.data.msg)
+        vm.$Message.success(res.data.msg);
+        vm.isShow = false;
+        vm.previewSrc = "";
+        // 上传次数限制
+        Cookie.set("count_change_avatar", Cookie.get("count_change_avatar") - 1);
+        vm.$Notice.success({
+            render: h => {
+                return h('span', {style:{Zindex: "10001", top: "64px"}}, "上传成功")
+            }
+        });
+       
     }).catch( error =>{
         console.log("error", error);
     })

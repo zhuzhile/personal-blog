@@ -20,15 +20,29 @@
                 :multiple = "false"
                 type="drag"
                 :before-upload = "getFileContent"
-                action="//jsonplaceholder.typicode.com/posts/">
+                show-upload-list
+                :max-size = "2048"
+                :on-format-error = "handleFormatError"
+                :format = "['jpg','jpeg','png']"
+                :on-exceeded-size = "handleMaxSize"
+                action="-">
                 <div style="padding: 20px 0">
-                    <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-                    <p>点击或将文件拖拽到这里上传</p>
+                    <div>
+                        <div v-if="isShow" height>
+                            <img :src = "previewSrc" height = "50%" width="50%" alt = "上传图片(注意只支持JPG,PNG格式)"/>
+                        </div>
+                        <div v-else>
+                            <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
+                            <p>点击或将文件拖拽到这里上传</p>
+                        </div>
+                        
+                    </div>
                 </div>
             </Upload>
             <Button type ="primary" @click = "upload" style = "margin-top: 20px;margin-left: 44%">确认上传</Button>
             <Button type ="error" @click = "cancel" style = "margin-top: 20px;margin-left: 20px">取消</Button>
         </div>
+
 
     <!-- 在线图片格式 -->
         <!-- <div>
@@ -57,34 +71,79 @@ import {client} from '@/util/util.js';
                 avatarUrl:'',
                 token: '14ac5499cfdd2bb2859e4476d2e5b1d2bad079bf',
                 file: '',
+                previewSrc:'',
+                isShow: false
             }
         },
+
         // created(){
         //     getLanRenConfig(this);
         // },
+
         methods:{
             ...mapMutations(['initAvatarUrl','initUserName']),
             
-            uploadSuccess(response,file){
-                console.log(response,file, "图片上传到懒人图床")
+            // uploadSuccess(response,file){
+            //     console.log(response,file, "图片上传到懒人图床")
+            // },
+
+            // uploadError(error){
+            //     console.log(error, "图片上传失败");  
+            // },
+
+            handleMaxSize (file) {
+                this.$Notice.warning({
+                    title: '超出文件大小限制',
+                    desc: '文件 ' + file.name + ' 太大，不能超过 5M。'
+                });
             },
 
-            uploadError(error){
-                console.log(error, "图片上传失败");  
+            handleFormatError (file) {
+                this.$Notice.warning({
+                    title: '文件格式不正确',
+                    desc: '文件 ' + file.name + ' 格式不正确，请上传 jpg 或 png 格式的图片。'
+                });
             },
 
             upload(){
                 if(!this.file){
-                    this.$Message.error("请选择图片后上传");
+                    this.$Notice.error({
+                        render: h => {
+                        return h('span', {style:{Zindex: "10001", top: "64px"}}, "请先选择上传图片");
+                    }
+                    });
+                    return;
+                }
+
+                if(Cookie.get('count_change_avatar') <= 0 
+                && Cookie.get('userName').toLowerCase() !== 'bemount'){
+                    this.$Notice.error({
+                        render: h => {
+                        return h('span', {style:{Zindex: "10001", top: "64px"}}, "今日次数已用尽");
+                    }
+                    });
                     return;
                 }
 
                 const Name = this.file.name;
                 const suffix = Name.substr(Name.indexOf('.'))              // 文件后缀
                 const filename = Date.parse(new Date()) + suffix           // 组成新文件名
+                let format = ['.jpg', '.png', '.jpeg'];
+
+                  // 不能大于5MB
+                if(this.file.size > 1024 * 1024 * 5){
+                    this.handleMaxSize(this.file);
+                    return;
+                }
+                
+                // 只能上传固定图片类型
+                if(!format.includes(suffix)){
+                    this.handleFormatError(this.file);
+                    return;
+                }
+
 
                 client.multipartUpload(filename, this.file).then(res => {   // 上传
-                    // console.log('上传成功：',res.res.requestUrls[0].split('?')[0])
                     this.avatarUrl = res.res.requestUrls[0].split('?')[0];
                     this.submitAvatarUrl();
                 }).catch(err => {
@@ -94,11 +153,28 @@ import {client} from '@/util/util.js';
 
             cancel(){
                 this.file = "";
-                this.$Message.info("取消成功");
+                this.isShow = false;
+                this.$Notice.success({
+                    render: h => {
+                        return h('span', {style:{Zindex: "10001", top: "64px"}}, "取消成功")
+                    }
+                });
             },
 
             getFileContent(file){
+
                 this.file = file;
+                let that = this;
+                let reader = new FileReader();
+                reader.readAsDataURL(file);
+
+                reader.onload = function(){
+                    that.$nextTick(function(){
+                        that.isShow = true;
+                        that.previewSrc = reader.result;
+                    })
+                }
+
                 return false;
             },
 
