@@ -10,7 +10,7 @@ export let client = new OSS({
   region: "oss-cn-beijing",
   // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
   accessKeyId: "<YOUR AccessKeyId>",
-  accessKeySecret: "YOUR SECERET",
+  accessKeySecret: "<YOUR SECERET>",
   bucket: "bemountimgbed",
 });
 
