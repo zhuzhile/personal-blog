@@ -25,7 +25,7 @@ export const login = (vm, name) =>{
                     }
                 });
                 // Cookies.withAttrib
-                Cookie.set('userName', vm.formData.user,{ expires: 1});
+                Cookie.set('userName', vm.formData.user);
                 vm.userName = Cookie.get('userName');
                 if(vm.formData.user.toLowerCase() === 'bemount'){
                     vm.updateMenuList();

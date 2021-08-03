@@ -126,7 +126,6 @@ export default {
   },
 
    created(){
-      
       this.$Notice.config({
         top: 74,
         duration: 3
@@ -136,6 +135,8 @@ export default {
         this.userName = Cookie.get('userName');
         this.isLogedIn = true;
         baseUserNameChangeMenuList(this);
+      }else{
+        localStorage.removeItem('jwt')
       }
    },
 
