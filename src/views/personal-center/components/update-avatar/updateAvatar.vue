@@ -169,10 +169,8 @@ import {client} from '@/util/util.js';
                 reader.readAsDataURL(file);
 
                 reader.onload = function(){
-                    that.$nextTick(function(){
-                        that.isShow = true;
-                        that.previewSrc = reader.result;
-                    })
+                    that.isShow = true;
+                    that.previewSrc = reader.result;
                 }
 
                 return false;
