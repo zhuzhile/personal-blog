@@ -6,7 +6,7 @@
        <menuComponent :menuList = 'menuList'></menuComponent>
       </Sider>
       <Layout>
-        <div class="header">
+        <div class="header" ref ="header">
              <div class = "header-right"></div>
              <div v-if='isLogedIn' class = "header-right">
                <Dropdown @on-click="handleRouterRedirect">
@@ -138,6 +138,11 @@ export default {
       }else{
         localStorage.removeItem('jwt')
       }
+      this.$nextTick(function(){
+           document.getElementsByClassName('header')[0].style.setProperty("--red", Math.random() * 255 + 1 );
+           document.getElementsByClassName('header')[0].style.setProperty("--yellow", Math.random() * 255 + 1 );
+           document.getElementsByClassName('header')[0].style.setProperty("--green", Math.random() * 255 + 1 );
+      })
    },
 
   methods:{
@@ -201,15 +206,39 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
   .sider{
     height: 100vh;
     background-color:rgb(255, 255, 255);
     position: fixed;
   }
+// sass的random函数
+
+  // @function randomNum($max, $min: 0, $u: 1) {
+  //   @return ($min + random($max)) * $u;
+  // }
+
+  // @function randomColor() {
+  //     @return rgb(randomNum(255), randomNum(255), randomNum(255));
+  // }
+  
+
+
+  // @supports( (--yellow: 255)){
+    @mixin bg-color{
+      background-color: rgba(var(--red, 253), var(---green, 114), var(--green, 109), 0.3);
+    }
+  // }
+
+  // @supports( not (--yellow: 255)){
+  //   @mixin bg-color{
+  //     background-color: rgba(253, 114, 109, 0.3);     
+  //   }
+  // }
 
   .header{
-    background-color: rgba(253, 114, 109);
+    // background: randomColor();
+    @include bg-color;
     width: calc(100% - 240px);
     padding: 0 50px;
     height: 64px;
@@ -224,7 +253,6 @@ export default {
      justify-content: space-between;
     }
   } 
-
   .content{
     position: absolute;
     left: 240px;
